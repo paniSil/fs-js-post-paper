@@ -1,0 +1,40 @@
+$font-primary: "Raleway", Verdana, Arial, sans-serif;
+$font-header: "Bungee Shade", Georgia, serif; // define secondary fonts
+
+$font-xl: 96px;
+$font-lg: 36px;
+$font-md: 20px;
+$font-sm: 16px;
+
+$color-font: #353534;
+$color-font-light: #7b7b7b;
+$color-duotone-one: #00fff2;
+$color-duotone-two: #ff0000;
+$color-background: #fff;
+
+$border-md: solid 4px $color-font;
+$border-sm: solid 2px $color-font;
+
+$shadow-stereo: 2px 2px 0 $color-duotone-one, -2px -2px 0 $color-duotone-two;
+$shadow-mono: 2px 2px 0 $color-duotone-one;
+
+$container-xxl: 1440px;
+$container-lg: 792px;
+$container-md: 360px; //maybe
+$container-sm: 320px;
+$container-sm: 272px; //text block on sides
+
+$gap-xxl: 60px;
+$gap-xl: 48px;
+$gap-lg: 32px;
+$gap-md: 24px;
+$gap-sm: 18px;
+$gap-xs: 12px;
+$gap-xxs: 8px;
+
+$ul: 1340px;
+$xl: 1200px;
+$lg: 992px;
+$md: 768px;
+$sm: 576px;
+$xs: 390px;
