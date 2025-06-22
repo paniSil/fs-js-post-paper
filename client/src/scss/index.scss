@@ -1,84 +1,31 @@
 @use "components" as *;
 
-* {
-  margin: 0;
-  margin-block: 0;
-  margin-inline: 0;
-  padding: 0;
-  padding-block: 0;
-  padding-inline: 0;
-}
-
 body {
   background-color: $color-background;
   font-family: $font-primary;
   color: $color-font;
+  font-size: $font-md;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.container-xxl {
-  width: $container-xxl;
-}
-
-// links
-
-.link {
-  font-size: $font-sm;
-  font-weight: 400;
-  text-transform: uppercase;
-  color: $color-font;
-  stroke-width: 1px;
-  transition: scale ease-in 0.1s;
-}
-
-.link:hover {
-  text-shadow: $shadow-mono;
-  scale: 1.05;
-}
-
-.link:hover .header__icon {
-  font-weight: 700;
-  filter: drop-shadow(2px 2px 0 $color-duotone-one);
-}
-
-// Header Component
-
-h1 {
-  font-family: $font-header;
-  font-size: $font-xl;
-  font-weight: 400;
-  color: $color-font;
-  text-shadow: $shadow-stereo;
-  justify-self: center;
-}
-
-.header__navbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-  align-items: center;
-  gap: $gap-xs;
+.container-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  max-width: $container-xxl;
   border-bottom: $border-md;
-  padding: $gap-sm $gap-md;
 }
 
-.header__item {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: $gap-xxs;
+.container-main {
+  border-left: $border-md;
+  border-right: $border-md;
+  padding-left: $gap-md;
+  padding-right: $gap-md;
+  padding-top: $gap-md;
 }
 
-.header__infobar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-size: $font-md;
-  color: $color-font-light;
-  border-top: $border-sm;
-  border-bottom: $border-md;
-  padding: $gap-xxs $gap-md;
+.sidebar {
+  padding: $gap-md;
 }

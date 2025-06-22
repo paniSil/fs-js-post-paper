@@ -1,0 +1,41 @@
+@use "_variables" as *;
+
+.header {
+  &__navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    gap: $gap-xs;
+    border-bottom: $border-md;
+    padding: $gap-sm $gap-md;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: $gap-xxs;
+  }
+
+  &__infobar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: $font-md;
+    color: $color-font-light;
+    border-top: $border-sm;
+    border-bottom: $border-md;
+    padding: $gap-xxs $gap-md;
+  }
+}
+
+.header h1 {
+  font-family: $font-header;
+  font-size: $font-xl;
+  font-weight: 400;
+  color: $color-font;
+  text-shadow: $shadow-stereo;
+  justify-self: center;
+  text-align: center;
+}

@@ -38,19 +38,19 @@ export const routes: RouteConfig[] = [
   {
     path: "/paper",
     Component: Paper,
-    label: "Paper",
+    label: "My Paper",
     showInNav: true,
   },
   {
     path: "/paperclips",
     Component: Paperclips,
-    label: "Paperclips",
+    label: "My Paperclips",
     showInNav: true,
   },
   {
     path: "/profile",
     Component: Profile,
-    label: "Author's Profile",
+    label: "My Profile",
     showInNav: true,
   },
   {

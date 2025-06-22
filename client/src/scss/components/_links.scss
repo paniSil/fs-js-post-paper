@@ -1,0 +1,53 @@
+@use "_variables" as *;
+
+.link {
+  font-size: $font-sm;
+  font-weight: 400;
+  text-transform: uppercase;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  color: $color-font;
+  stroke-width: 1px;
+  transition: scale ease-in 0.1s;
+}
+
+.link:hover {
+  text-shadow: $shadow-mono;
+  scale: 1.05;
+
+  .link__icon {
+    font-weight: 700;
+    filter: drop-shadow(2px 2px 0 $color-duotone-one);
+  }
+}
+
+.link-span {
+  display: inline-block;
+  vertical-align: baseline;
+  transition: scale ease-in-out 0.2s;
+
+  &__text {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    color: $color-font;
+    stroke-width: 1px;
+  }
+
+  &__icon {
+    margin-left: 2px;
+  }
+}
+
+.link-span:hover {
+  text-shadow: $shadow-mono;
+  scale: 1.03;
+
+  .link-span__icon {
+    filter: drop-shadow(2px 2px 0 $color-duotone-one);
+  }
+}

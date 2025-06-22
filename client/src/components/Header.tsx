@@ -7,15 +7,15 @@ const Header = () => {
       <div className="header__navbar">
         <Button to="/" title="New Article" className="header__item link">
           Write
-          <SlNote size="1.2rem" className="header__icon" />
+          <SlNote size="1.2rem" className="link__icon" />
         </Button>
 
-        <Button className="header__item link">
-          <SlUser size="1.2rem" className="header__icon" />
+        <Button to="/profile" className="header__item link">
+          <SlUser size="1.2rem" className="link__icon" />
         </Button>
 
-        <Button className="header__item link">
-          <SlLogout size="1.2rem" className="header__icon" />
+        <Button to="/" className="header__item link">
+          <SlLogout size="1.2rem" className="link__icon" />
         </Button>
       </div>
 

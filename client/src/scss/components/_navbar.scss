@@ -1,0 +1,38 @@
+@use "_variables" as *;
+
+.navbar {
+  margin-top: $gap-md;
+  padding-right: $gap-md;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    list-style-position: outside;
+    display: flex;
+
+    margin-left: -18px;
+  }
+  &__item {
+    display: block;
+    padding-bottom: $gap-sm;
+    padding-top: $gap-sm;
+    border-bottom: $border-sm;
+  }
+
+  &__link {
+    display: inline-block;
+    font-size: $font-md;
+    font-weight: 300;
+    text-transform: uppercase;
+    color: $color-font;
+    stroke-width: 1px;
+    transition: scale ease-in 0.1s;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+
+  &__link:hover {
+    text-shadow: $shadow-mono;
+    scale: 1.03;
+  }
+}
