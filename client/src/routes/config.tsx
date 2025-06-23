@@ -30,9 +30,9 @@ export const routes: RouteConfig[] = [
     showInNav: true,
   },
   {
-    path: "/article",
+    path: "/articles/:id",
     Component: Article,
-    label: "Article",
+    label: "Full Article",
     showInNav: false,
   },
   {

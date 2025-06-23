@@ -28,8 +28,11 @@
     margin-bottom: $gap-sm;
   }
 
-  &__image--small {
-    height: 240px;
+  &__image--full {
+    object-fit: cover;
+    width: 100%;
+    margin-top: $gap-xxs;
+    margin-bottom: $gap-sm;
   }
 
   &__text {
@@ -42,8 +45,12 @@
     overflow: hidden;
   }
 
-  &__text--small {
+  &__text--full {
+    font-size: $font-sm;
+    text-align: justify;
     column-count: 1;
+    column-gap: $gap-sm;
+    margin-bottom: $gap-sm;
   }
 
   &__button {
@@ -75,5 +82,15 @@
     padding: 0;
     margin: 0;
     margin-bottom: $gap-sm;
+  }
+}
+
+.article--small {
+  .article__image {
+    height: 240px;
+  }
+
+  .article__text {
+    column-count: 1;
   }
 }

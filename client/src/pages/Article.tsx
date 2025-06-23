@@ -1,7 +1,9 @@
+import ArticleFull from "../components/forPages/ArticleFull";
+
 const Article = () => {
   return (
     <div>
-      <h2>Individual Article</h2>
+      <ArticleFull />
     </div>
   );
 };

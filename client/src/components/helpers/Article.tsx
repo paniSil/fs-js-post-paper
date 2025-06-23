@@ -9,6 +9,7 @@ interface ArticleProps {
 
 const Article = ({
   article: {
+    articleId,
     authorId,
     title,
     subtitle,
@@ -52,7 +53,9 @@ const Article = ({
         </div>
 
         <div className="article__readmore link-span">
-          <Button className="link-span__text">read more...</Button>
+          <Button className="link-span__text" to={`/articles/${articleId}`}>
+            read more...
+          </Button>
         </div>
       </div>
     </div>
