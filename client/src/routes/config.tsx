@@ -20,8 +20,8 @@ export const routes: RouteConfig[] = [
   {
     path: "/",
     Component: Index,
-    label: "Index",
-    showInNav: false,
+    label: "Front Page",
+    showInNav: true,
   },
   {
     path: "/articles",

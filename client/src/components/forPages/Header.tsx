@@ -1,5 +1,5 @@
-import Button from "./Button";
 import { SlNote, SlUser, SlLogout } from "react-icons/sl";
+import Button from "../helpers/Button";
 
 const Header = () => {
   return (

@@ -1,5 +1,5 @@
 import { NavLink } from "react-router";
-import { routes } from "../routes/config";
+import { routes } from "../../routes/config";
 
 const Navbar = () => {
   return (

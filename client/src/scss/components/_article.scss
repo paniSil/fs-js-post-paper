@@ -1,0 +1,79 @@
+@use "_variables" as *;
+.articles-grid {
+  column-count: 2;
+  column-gap: $gap-sm;
+}
+
+.article {
+  break-inside: avoid-column;
+  margin-bottom: $gap-lg;
+
+  &__info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: $font-sm;
+  }
+
+  &__date {
+    font-weight: 400;
+    color: $color-font-light;
+  }
+
+  &__image {
+    object-fit: cover;
+    width: 100%;
+    height: 300px;
+    margin-top: $gap-xxs;
+    margin-bottom: $gap-sm;
+  }
+
+  &__image--small {
+    height: 240px;
+  }
+
+  &__text {
+    font-size: $font-sm;
+    text-align: justify;
+    column-count: 2;
+    column-gap: $gap-sm;
+    margin-bottom: $gap-sm;
+    max-height: 180px;
+    overflow: hidden;
+  }
+
+  &__text--small {
+    column-count: 1;
+  }
+
+  &__button {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: $gap-xxs;
+    margin-right: $gap-xs;
+
+    span {
+      font-weight: 500;
+      font-size: $font-sm;
+    }
+  }
+
+  h2 {
+    text-align: center;
+    font-size: $font-lg;
+    padding: 0;
+    margin: 0;
+    margin-bottom: $gap-md;
+  }
+
+  h3 {
+    text-align: center;
+    font-weight: 300;
+    font-style: italic;
+    font-size: $font-md;
+    padding: 0;
+    margin: 0;
+    margin-bottom: $gap-sm;
+  }
+}

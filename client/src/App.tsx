@@ -1,10 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import "./scss/index.scss";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import Navbar from "./components/Navbar";
 import { routes } from "./routes/config";
-import Sidebar from "./components/Sidebar";
+import Provider from "./components/Provider";
+import Sidebar from "./components/forPages/Sidebar";
+import Header from "./components/forPages/Header";
+import Navbar from "./components/forPages/Navbar";
+import Footer from "./components/forPages/Footer";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -15,7 +16,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <div className="container-main">{children}</div>
         <Sidebar />
       </div>
-
       <Footer />
     </>
   );
@@ -35,9 +35,11 @@ const router = createBrowserRouter(routerConfig);
 function App() {
   return (
     <>
-      <div className="container-xxl">
-        <RouterProvider router={router} />
-      </div>
+      <Provider>
+        <div className="container-xxl">
+          <RouterProvider router={router} />
+        </div>
+      </Provider>
     </>
   );
 }

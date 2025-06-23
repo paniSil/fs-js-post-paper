@@ -14,7 +14,6 @@
   &__item {
     display: flex;
     flex-direction: row;
-    align-items: center;
     gap: $gap-xxs;
   }
 
@@ -27,6 +26,7 @@
     border-top: $border-sm;
     border-bottom: $border-md;
     padding: $gap-xxs $gap-md;
+    text-align: center;
   }
 }
 
@@ -38,4 +38,5 @@
   text-shadow: $shadow-stereo;
   justify-self: center;
   text-align: center;
+  margin: $gap-xxs;
 }

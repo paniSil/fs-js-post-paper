@@ -1,5 +1,5 @@
 import { RxExternalLink } from "react-icons/rx";
-import Button from "./Button";
+import Button from "../helpers/Button";
 
 const Footer = () => {
   return (
