@@ -10,7 +10,7 @@ const Navbar = () => {
             {routes
               .filter((route) => route.showInNav)
               .map((route) => (
-                <li className="navbar__item">
+                <li className="navbar__item" key={route.path}>
                   <NavLink
                     key={route.path}
                     to={route.path}

@@ -1,26 +1,22 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import type { ArticleInterface } from "../../types/Article.interface";
-import { MOCK_ARTICLES } from "../../data/mock-articles";
 import Button from "../helpers/Button";
 import { GoPaperclip } from "react-icons/go";
 import { BsStar } from "react-icons/bs";
-
-//виведення однієї статті повністю
+import { Context } from "../../context/Context";
 
 const ArticleFull = () => {
+  const { articles } = useContext(Context);
   const { id } = useParams<{ id: string }>();
   const [article, setArticle] = useState<ArticleInterface | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const { users } = useContext(Context);
 
   useEffect(() => {
     setLoading(true);
 
-    const articleId = parseInt(id, 10);
-
-    const currentArticle = MOCK_ARTICLES.find(
-      (article) => article.articleId === articleId
-    );
+    const currentArticle = articles.find((article) => article._id === id);
 
     if (currentArticle) {
       setArticle(currentArticle);
@@ -28,7 +24,7 @@ const ArticleFull = () => {
       setArticle(null);
     }
     setLoading(false);
-  }, [id]);
+  }, [id, articles]);
 
   if (loading) {
     return (
@@ -45,39 +41,65 @@ const ArticleFull = () => {
       </div>
     );
   }
+
+  const {
+    authorId,
+    createdAt,
+    cover,
+    title,
+    description,
+    text,
+    likes,
+    paperclips,
+  } = article;
+  const author = users.find(
+    (user) => user._id === authorId || user._id === authorId
+  );
+
   return (
     <div className="article">
       <div className="article__header">
         <div className="article__info">
           <div className="article__author link-span">
-            <Button className="link-span__text">{article.authorId}</Button>
+            <div className="article__avatar-frame">
+              <img src={author ? author.avatar : ""} alt="avatar" />
+            </div>
+
+            <Button className="link-span__text">
+              {author ? author.name : authorId}
+            </Button>
           </div>
-          <div className="article__date">{article.createdAt}</div>
+          <div className="article__date">
+            {createdAt
+              ? new Date(createdAt).toLocaleDateString("en-EN", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })
+              : ""}
+          </div>
         </div>
         <div className="article__cover">
-          <img
-            className="article__image--full"
-            src={article.cover}
-            alt={article.title}
-          />
+          <img className="article__image--full" src={cover} alt={title} />
         </div>
       </div>
-      <h2>{article.title}</h2>
-      <h3>{article.subtitle}</h3>
-      <div className="article__text--full">{article.text}</div>
+      <h2>{title}</h2>
+      <h3>{description}</h3>
+      <div className="article__text--full">{text}</div>
       <div className="article__info">
         <div className="article__info">
           <div className="article__button">
             <Button className="link">
               <BsStar size="1.2rem" className="link__icon" />
             </Button>
-            <span>{article.likes}</span>
+            <span>{likes}</span>
           </div>
           <div className="article__button">
             <Button className="link">
               <GoPaperclip size="1.2rem" className="link__icon" />
             </Button>
-            <span>{article.paperclips}</span>
+            <span>{paperclips}</span>
           </div>
         </div>
       </div>

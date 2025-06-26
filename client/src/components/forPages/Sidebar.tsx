@@ -1,3 +1,5 @@
+import TopAuthors from "./TopAuthors";
+
 const Sidebar = () => {
   return (
     <div className="sidebar">
@@ -9,11 +11,9 @@ const Sidebar = () => {
         quisquam! Distinctio, nostrum.
       </p>
       <h3>Top Authors</h3>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem doloremque
-        repellat illum excepturi inventore velit rerum nihil et! Eos quidem
-        ratione quis ut aliquam corrupti fugit ea ad eveniet nesciunt?
-      </p>
+      <div>
+        <TopAuthors />
+      </div>
       <h3>Random Article</h3>
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore sint

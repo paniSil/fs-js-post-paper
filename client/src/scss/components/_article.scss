@@ -13,11 +13,29 @@
     flex-direction: row;
     justify-content: space-between;
     font-size: $font-sm;
+    align-items: center;
   }
 
   &__date {
     font-weight: 400;
     color: $color-font-light;
+  }
+
+  &__author {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: $gap-xxs;
+  }
+
+  &__avatar-frame {
+    border-radius: 10px;
+
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
   }
 
   &__image {

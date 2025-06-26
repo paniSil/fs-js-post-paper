@@ -1,8 +1,8 @@
 export interface ArticleInterface {
-  articleId: number;
-  authorId: number;
+  _id: string;
+  authorId: string;
   title: string;
-  subtitle: string;
+  description: string;
   text: string;
   createdAt?: string;
   updatedAt?: string;

@@ -1,0 +1,13 @@
+@use "_variables" as *;
+
+.sidebar {
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  &__item {
+    margin-bottom: $gap-xs;
+  }
+}
