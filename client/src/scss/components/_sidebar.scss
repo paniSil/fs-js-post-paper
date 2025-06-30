@@ -9,5 +9,27 @@
 
   &__item {
     margin-bottom: $gap-xs;
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: row;
+    gap: $gap-xs;
+    align-items: center;
+    font-size: $font-md;
+    font-weight: 300;
+    text-transform: uppercase;
+    color: $color-font;
+    stroke-width: 1px;
+    transition: scale ease-in 0.1s;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+
+  &__link:hover {
+    text-shadow: $shadow-mono;
+    scale: 1.03;
   }
 }

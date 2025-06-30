@@ -10,10 +10,7 @@ const Sidebar = () => {
         recusandae numquam, iste asperiores accusamus omnis reprehenderit
         quisquam! Distinctio, nostrum.
       </p>
-      <h3>Top Authors</h3>
-      <div>
-        <TopAuthors />
-      </div>
+      <TopAuthors />
       <h3>Random Article</h3>
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore sint

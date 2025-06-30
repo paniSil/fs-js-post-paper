@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { Context } from "../../context/Context";
+import Button from "../helpers/Button";
 
 const TopAuthors = () => {
   const { users } = useContext(Context);
@@ -10,13 +11,16 @@ const TopAuthors = () => {
 
   return (
     <div>
+      <h3>Top Authors</h3>
       <ul className="sidebar__list">
         {users.map((user) => (
-          <li className="sidebar__item article__author">
-            <div className="article__avatar-frame">
-              <img src={user ? user.avatar : ""} alt="avatar" />
-            </div>
-            {user.name}
+          <li className="sidebar__item article__author ">
+            <Button to={`users/${user._id}`} className="sidebar__link">
+              <div className="article__avatar-frame">
+                <img src={user ? user.avatar : ""} alt="avatar" />
+              </div>
+              {user.name}
+            </Button>
           </li>
         ))}
       </ul>

@@ -14,7 +14,7 @@ const Articles = () => {
       <Article key={articles[0]._id} article={articles[0]} />
 
       <div className="articles-grid">
-        {articles.map(function (article, index) {
+        {articles.reverse().map(function (article, index) {
           if (index !== 0) {
             return (
               <div className="article--small">
