@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Context } from "../context/Context";
-import Article from "../components/helpers/Article";
+import Article from "../components/forPages/ArticleCard";
 
 const AllArticles = () => {
   const { articles } = useContext(Context);

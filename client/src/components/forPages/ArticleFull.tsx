@@ -65,7 +65,7 @@ const ArticleFull = () => {
               <img src={author ? author.avatar : ""} alt="avatar" />
             </div>
 
-            <Button className="link-span__text">
+            <Button className="link__button link-span__text">
               {author ? author.name : authorId}
             </Button>
           </div>
@@ -90,13 +90,13 @@ const ArticleFull = () => {
       <div className="article__info">
         <div className="article__info">
           <div className="article__button">
-            <Button className="link">
+            <Button className="link__button link">
               <BsStar size="1.2rem" className="link__icon" />
             </Button>
             <span>{likes}</span>
           </div>
           <div className="article__button">
-            <Button className="link">
+            <Button className="link__button link">
               <GoPaperclip size="1.2rem" className="link__icon" />
             </Button>
             <span>{paperclips}</span>

@@ -1,0 +1,32 @@
+@use "_variables" as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $gap-sm;
+
+  div {
+    display: flex;
+    flex-direction: row;
+    gap: $gap-xxs;
+  }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+    border: none;
+    width: 50%;
+    padding: $gap-xs;
+    background-color: $color-font;
+    color: $color-background;
+    transition: box-shadow 0.2s ease-in-out;
+    font-size: $font-md;
+    font-weight: 300;
+    text-transform: uppercase;
+  }
+
+  button:hover {
+    box-shadow: $shadow-stereo;
+    color: $color-duotone-one;
+  }
+}

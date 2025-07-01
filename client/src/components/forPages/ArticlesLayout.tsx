@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Context } from "../../context/Context";
-import Article from "./Article";
+import Article from "./ArticleCard";
 
 const Articles = () => {
   const { articles } = useContext(Context);

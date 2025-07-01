@@ -9,6 +9,20 @@
   color: $color-font;
   stroke-width: 1px;
   transition: scale ease-in 0.1s;
+
+  &__icon {
+    flex-shrink: 0;
+  }
+
+  &__button {
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
 
 .link:hover {

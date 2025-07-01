@@ -1,4 +1,4 @@
-import Articles from "../components/helpers/Articles";
+import Articles from "../components/forPages/ArticlesLayout";
 import Button from "../components/helpers/Button";
 
 const Index = () => {

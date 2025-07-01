@@ -18,6 +18,7 @@ const getRegisterPage = (req, res) => {
 
 const postRegisterPage = async (req, res) => {
     try {
+        console.log(req.body)
         const { name, email, password, age, avatar } = req.body;
         if (!name || !email || !password) {
             return res.status(400).send('Поля позначені * обов\'язкові для реєстрації.');

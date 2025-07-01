@@ -10,10 +10,14 @@ const TopAuthors = () => {
   }
 
   return (
-    <div>
-      <h3>Top Authors</h3>
+    <div className="sidebar__block">
+      <h3>
+        <Button to={"/top-authors"} className="navbar__link">
+          Top authors
+        </Button>
+      </h3>
       <ul className="sidebar__list">
-        {users.map((user) => (
+        {users.slice(0, 5).map((user) => (
           <li className="sidebar__item article__author ">
             <Button to={`users/${user._id}`} className="sidebar__link">
               <div className="article__avatar-frame">

@@ -12,10 +12,18 @@ interface ButtonProps {
 }
 
 const Button = ({ children, to, ...props }: Partial<ButtonProps>) => {
+  if (to) {
+    return (
+      <NavLink to={to} {...props}>
+        {children}
+      </NavLink>
+    );
+  }
+
   return (
-    <NavLink to={to || "/"} {...props}>
+    <button type="button" {...props}>
       {children}
-    </NavLink>
+    </button>
   );
 };
 

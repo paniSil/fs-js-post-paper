@@ -8,6 +8,7 @@ export default defineConfig({
     proxy: {
       "/users": "http://localhost:3000",
       "/articles": "http://localhost:3000",
+      "/auth": "http://localhost:3000",
     },
   },
 });

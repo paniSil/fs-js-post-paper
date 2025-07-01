@@ -3,9 +3,11 @@ import AllArticles from "../pages/AllArticles";
 import Article from "../pages/Article";
 import Contacts from "../pages/Contacts";
 import Index from "../pages/Index";
+import Login from "../pages/auth/Login";
 import Paper from "../pages/Paper";
 import Paperclips from "../pages/Paperclips";
-import Profile from "../pages/Profile";
+import Profile from "../pages/auth/Profile";
+import Register from "../pages/Register";
 import TopArticles from "../pages/TopArticles";
 import TopAuthors from "../pages/TopAuthors";
 
@@ -75,6 +77,18 @@ export const routes: RouteConfig[] = [
     path: "/contacts",
     Component: Contacts,
     label: "Contacts",
+    showInNav: false,
+  },
+  {
+    path: "/register",
+    Component: Register,
+    label: "Register",
+    showInNav: false,
+  },
+  {
+    path: "/login",
+    Component: Login,
+    label: "Login",
     showInNav: false,
   },
   // Add Colophon ???

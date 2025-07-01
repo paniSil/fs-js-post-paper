@@ -6,7 +6,7 @@ export interface ArticleInterface {
   text: string;
   createdAt?: string;
   updatedAt?: string;
-  likes?: number;
-  paperclips?: number;
+  likes: number;
+  paperclips: number;
   cover?: string;
 }

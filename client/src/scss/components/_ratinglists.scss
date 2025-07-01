@@ -1,0 +1,30 @@
+@use "_variables" as *;
+
+.rating {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    gap: $gap-xs;
+  }
+
+  &__item {
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: row;
+    gap: $gap-xxs;
+    align-items: center;
+    font-size: $font-sm;
+    font-weight: 400;
+    text-decoration: none;
+    color: $color-font;
+    transition: scale ease-in 0.1s;
+  }
+
+  &__link:hover {
+    text-shadow: $shadow-mono;
+    scale: 1.01;
+  }
+}

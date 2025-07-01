@@ -1,14 +1,30 @@
 @use "_variables" as *;
 
 .sidebar {
+  &__block {
+    border-bottom: $border-sm;
+    padding-bottom: $gap-md;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    font-weight: 300;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    transition: scale ease-in 0.1s;
+  }
+
   &__list {
+    display: flex;
+    flex-direction: column;
     margin: 0;
     padding: 0;
     list-style-type: none;
+    gap: $gap-xs;
   }
 
   &__item {
-    margin-bottom: $gap-xs;
     display: flex;
     flex-direction: row;
   }
@@ -16,20 +32,40 @@
   &__link {
     display: flex;
     flex-direction: row;
-    gap: $gap-xs;
+    gap: $gap-xxs;
     align-items: center;
-    font-size: $font-md;
-    font-weight: 300;
-    text-transform: uppercase;
+    font-size: $font-sm;
+    font-weight: 400;
+    text-decoration: none;
     color: $color-font;
-    stroke-width: 1px;
     transition: scale ease-in 0.1s;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 2px;
   }
 
   &__link:hover {
     text-shadow: $shadow-mono;
     scale: 1.03;
+  }
+}
+
+.random {
+  text-align: center;
+
+  h3 {
+    text-align: center;
+    font-weight: 300;
+    font-style: italic;
+    font-size: $font-md;
+    padding: 0;
+    margin: 0;
+    margin-bottom: $gap-sm;
+  }
+
+  &__link-block {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  &__link-span {
+    font-size: $font-sm;
   }
 }
