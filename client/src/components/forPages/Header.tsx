@@ -1,7 +1,11 @@
 import { SlNote, SlUser, SlLogout } from "react-icons/sl";
 import Button from "../helpers/Button";
+import { useContext } from "react";
+import { Context } from "../../context/Context";
 
 const Header = () => {
+  const { currentUser, logout } = useContext(Context);
+
   const today = new Date().toLocaleDateString("en-EN", {
     weekday: "long",
     year: "numeric",
@@ -10,35 +14,44 @@ const Header = () => {
   });
   return (
     <header className="header">
-      <div className="header__navbar">
-        <Button to="/register" title="Register" className="header__item link">
-          Registration
-        </Button>
+      {!currentUser && (
+        <div className="header__navbar">
+          <Button to="/register" title="Register" className="header__item link">
+            Registration
+          </Button>
 
-        <Button to="/login" title="Login" className="header__item link">
-          Login
-        </Button>
+          <Button to="/login" title="Login" className="header__item link">
+            Login
+          </Button>
+        </div>
+      )}
 
-        <Button to="/" title="New Article" className="header__item link">
-          Write
-          <SlNote size="1.2rem" className="link__icon" />
-        </Button>
+      {currentUser && (
+        <div className="header__navbar">
+          <Button to="/write" title="New Article" className="header__item link">
+            <SlNote size="1.2rem" className="link__icon" />
+            Write
+          </Button>
 
-        <Button to="/profile" className="header__item link">
-          <SlUser size="1.2rem" className="link__icon" />
-        </Button>
+          <Button
+            to={`/users/${currentUser?._id}`}
+            className="header__item link"
+          >
+            <SlUser size="1.2rem" className="link__icon" />
+            {currentUser?.name}
+          </Button>
 
-        <Button to="/" className="header__item link">
-          <SlLogout size="1.2rem" className="link__icon" />
-        </Button>
-      </div>
+          <Button to="/" onClick={logout} className="header__item link">
+            <SlLogout size="1.2rem" className="link__icon" />
+          </Button>
+        </div>
+      )}
 
       <h1>The Post Paper</h1>
       <div className="header__infobar">
         {/* add issue counter (articles / 10) */}
         <div className="header__text">Issue №1234</div>
         <div className="header__text">Your old-school blogging companion</div>
-        {/* add current date */}
         <div className="header__text">{today}</div>
       </div>
     </header>

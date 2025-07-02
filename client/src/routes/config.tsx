@@ -6,10 +6,12 @@ import Index from "../pages/Index";
 import Login from "../pages/auth/Login";
 import Paper from "../pages/Paper";
 import Paperclips from "../pages/Paperclips";
-import Profile from "../pages/auth/Profile";
-import Register from "../pages/Register";
+import Profile from "../pages/Profile";
+import Register from "../pages/auth/Register";
 import TopArticles from "../pages/TopArticles";
 import TopAuthors from "../pages/TopAuthors";
+import Forgot from "../pages/auth/Forgot";
+import Write from "../pages/Write";
 
 interface RouteConfig {
   path: string;
@@ -38,6 +40,12 @@ export const routes: RouteConfig[] = [
     showInNav: false,
   },
   {
+    path: "/write",
+    Component: Write,
+    label: "Write New Article",
+    showInNav: false,
+  },
+  {
     path: "/paper",
     Component: Paper,
     label: "My Paper",
@@ -50,9 +58,9 @@ export const routes: RouteConfig[] = [
     showInNav: true,
   },
   {
-    path: "/profile",
+    path: "/users/:id",
     Component: Profile,
-    label: "My Profile",
+    label: "User Profile",
     showInNav: true,
   },
   {
@@ -89,6 +97,12 @@ export const routes: RouteConfig[] = [
     path: "/login",
     Component: Login,
     label: "Login",
+    showInNav: false,
+  },
+  {
+    path: "/forgot",
+    Component: Forgot,
+    label: "Forgot",
     showInNav: false,
   },
   // Add Colophon ???

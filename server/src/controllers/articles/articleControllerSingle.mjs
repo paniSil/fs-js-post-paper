@@ -6,11 +6,14 @@ const postArticleHandler = async (req, res) => {
     const { title,
         description,
         text,
-        authorId,
-        likes,
-        paperclips,
         cover } = req.body;
+    console.log(req.user)
+    if (!req.user) {
+        return res.status(401).json({ message: "Not authenticated" });
+    }
+
     try {
+        const authorId = req.user?._id;
         const existingArticle = await findArticleByTitle(title);
         if (existingArticle) {
             return res.status(409).json({ message: 'Title is taken' });
@@ -21,8 +24,6 @@ const postArticleHandler = async (req, res) => {
             description,
             text,
             authorId,
-            likes,
-            paperclips,
             cover
         })
 

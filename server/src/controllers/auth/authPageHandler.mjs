@@ -19,7 +19,7 @@ const getRegisterPage = (req, res) => {
 const postRegisterPage = async (req, res) => {
     try {
         console.log(req.body)
-        const { name, email, password, age, avatar } = req.body;
+        const { name, email, password, age } = req.body;
         if (!name || !email || !password) {
             return res.status(400).send('Поля позначені * обов\'язкові для реєстрації.');
         }
@@ -29,7 +29,7 @@ const postRegisterPage = async (req, res) => {
             return res.status(409).send('Користувач з таким email вже зареєстрований.');
         }
 
-        const newUser = await createUserInDb(name, email, password, age, avatar)
+        const newUser = await createUserInDb(name, email, password, age)
 
         req.login(newUser, (err) => {
             if (err) {

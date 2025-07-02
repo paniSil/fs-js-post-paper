@@ -3,12 +3,43 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: $gap-sm;
+  gap: $gap-xs;
+  align-items: center;
 
   div {
-    display: flex;
-    flex-direction: row;
-    gap: $gap-xxs;
+    justify-items: center;
+    div {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      label {
+        background-color: $color-font;
+        margin: 0;
+        padding: $gap-xxs $gap-sm;
+        color: $color-background;
+        font-size: $font-sm;
+        width: 90px;
+        margin-bottom: $gap-xxs;
+      }
+
+      input {
+        width: 300px;
+        min-height: 29px;
+        border-radius: 0;
+        padding-left: $gap-xs;
+        padding-right: $gap-xs;
+        margin-bottom: $gap-xxs;
+      }
+    }
+  }
+
+  &__error {
+    color: $color-duotone-two;
+    font-size: $font-sm;
+    justify-content: center;
+    width: 320px;
+    text-align: center;
   }
 
   button {
@@ -23,10 +54,16 @@
     font-size: $font-md;
     font-weight: 300;
     text-transform: uppercase;
+    margin-top: $gap-sm;
   }
 
   button:hover {
     box-shadow: $shadow-stereo;
     color: $color-duotone-one;
+  }
+
+  p {
+    padding: 0;
+    margin: 0;
   }
 }

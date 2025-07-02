@@ -1,10 +1,10 @@
 import { Joi, celebrate, Segments } from "celebrate"
 
 const articleSchema = Joi.object({
-    title: Joi.string().required().min(3).max(120),
+    title: Joi.string().min(3).max(120),
     description: Joi.string().required().min(10).max(240),
     text: Joi.string().required().min(3),
-    cover: Joi.string()
+    cover: Joi.string().uri()
 })
 
 const updateManyArticlesSchema = Joi.object({

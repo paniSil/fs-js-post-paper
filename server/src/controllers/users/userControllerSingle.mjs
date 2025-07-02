@@ -57,13 +57,21 @@ const getUserByIdHandler = async (req, res) => {
 const putUserByIdHandler = async (req, res) => {
     try {
         const userId = req.params.id;
-        const { name, email, age } = req.body;
+        const { name, email, age, avatar, articleId, paperclips } = req.body;
         const updates = {};
         if (name) updates.name = name;
         if (email) updates.email = email;
         if (age) updates.age = age;
         if (avatar) updates.avatar = avatar;
         updates.updatedAt = new Date();
+        if (articleId) {
+            await User.findByIdAndUpdate(
+                userId,
+                { $push: { articles: articleId }, $set: updates },
+                { new: true, runValidators: true }
+            );
+        }
+        if (paperclips) updates.paperclips = paperclips;
 
         if (Object.keys(updates).length === 0) {
             return res.status(400).json({ message: 'No update data' });
