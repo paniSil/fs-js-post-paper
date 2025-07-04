@@ -14,7 +14,7 @@ const AllArticles = () => {
       </div>
       <div>
         {articles.map(function (article) {
-          return <Article key={article.articleId} article={article} />;
+          return <Article key={article._id} article={article} />;
         })}
       </div>
     </div>

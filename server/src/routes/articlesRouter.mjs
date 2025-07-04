@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { validateArticleBody, validateParamsArticleId, validateUpdateManyArticlesBody, validateReplaceArticle } from '../validators/articleValidation.mjs'
+import { validateArticleBody, validateParamsArticleId, validateUpdateManyArticlesBody, validateReplaceArticle, validateUpdateArticleBody } from '../validators/articleValidation.mjs'
 import { addNewArticleHandler, addNewArticlePageHandler, getArticleStatsPageHandler } from '../controllers/articles/articlePageControllers.mjs';
 import { getArticlesHandler, getArticleStatsHandler } from '../controllers/articles/articleController.mjs';
 import { postArticleHandler, replaceArticleHandler, getArticleByIdHandler, putArticleByIdHandler, deleteArticleByIdHandler } from '../controllers/articles/articleControllerSingle.mjs';
@@ -30,13 +30,9 @@ articlesRouter.get('/stats', getArticleStatsHandler);
 articlesRouter.get('/stats/view', getArticleStatsPageHandler);
 
 articlesRouter
-    .route('/api')
-    .get(getArticlesHandler);
-
-articlesRouter
     .route('/:id')
     .get(validateParamsArticleId, getArticleByIdHandler)
-    .put(validateParamsArticleId, validateArticleBody, putArticleByIdHandler)
+    .put(validateParamsArticleId, putArticleByIdHandler, validateUpdateArticleBody)
     .delete(validateParamsArticleId, deleteArticleByIdHandler)
 
 

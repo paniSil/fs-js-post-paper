@@ -33,10 +33,7 @@ const Header = () => {
             Write
           </Button>
 
-          <Button
-            to={`/users/${currentUser?._id}`}
-            className="header__item link"
-          >
+          <Button to={`/myprofile`} className="header__item link">
             <SlUser size="1.2rem" className="link__icon" />
             {currentUser?.name}
           </Button>

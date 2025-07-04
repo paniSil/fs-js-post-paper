@@ -33,6 +33,7 @@
     display: inline-block;
 
     img {
+      object-fit: cover;
       width: 32px;
       height: 32px;
       border-radius: 50%;
@@ -112,4 +113,8 @@
   .article__text {
     column-count: 1;
   }
+}
+
+.articles__empty {
+  text-align: center;
 }

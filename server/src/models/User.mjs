@@ -33,8 +33,7 @@ const UserSchema = new mongoose.Schema({
         default: 'https://images.unsplash.com/photo-1495462911434-be47104d70fa?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
     },
     articles: [{
-        type: mongoose.Schema.Types.ObjectId, ref: 'Article',
-        default: [],
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article', default: [] }],
     }],
     paperclips: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article', default: [] }],
     resetToken: String,

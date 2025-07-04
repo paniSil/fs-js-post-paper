@@ -26,6 +26,7 @@ const ArticleSchema = new mongoose.Schema({
         minlength: [10, 'Text must be at least 10 characters long']
     },
     likes: { type: Number, default: 0 },
+    likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     paperclips: { type: Number, default: 0 },
     cover: { type: String }
 }, { timestamps: true })

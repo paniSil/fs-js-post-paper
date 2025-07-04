@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Context } from "../../context/Context";
 import Article from "./ArticleCard";
 
@@ -14,16 +14,13 @@ const Articles = () => {
       <Article key={articles[0]._id} article={articles[0]} />
 
       <div className="articles-grid">
-        {articles.reverse().map(function (article, index) {
-          if (index !== 0) {
-            return (
-              <div className="article--small">
-                <Article key={article._id} article={article} />
-              </div>
-            );
-          }
-          return null;
-        })}
+        {articles.slice(1).map((article) =>
+          article && article._id ? (
+            <div className="article--small" key={article._id}>
+              <Article article={article} />
+            </div>
+          ) : null
+        )}
       </div>
     </div>
   );

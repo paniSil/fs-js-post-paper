@@ -7,7 +7,6 @@ const postArticleHandler = async (req, res) => {
         description,
         text,
         cover } = req.body;
-    console.log(req.user)
     if (!req.user) {
         return res.status(401).json({ message: "Not authenticated" });
     }
@@ -62,18 +61,32 @@ const putArticleByIdHandler = async (req, res) => {
     try {
 
         const articleId = req.params.id;
-        const { title, text } = req.body;
+        const { title, text, paperclipsIncrement, likedBy, likes } = req.body;
         const updates = {};
+        console.log(likedBy, likes)
         if (title) updates.title = title;
         if (text) updates.text = text;
 
-        if (Object.keys(updates).length === 0) {
+        let updateQuery = {};
+        if (Object.keys(updates).length > 0) {
+            updateQuery.$set = updates;
+        }
+
+        if (typeof paperclipsIncrement === "number") {
+            updateQuery.$inc = { paperclips: paperclipsIncrement };
+        }
+
+        if (Array.isArray(likedBy) && typeof likes === "number") {
+            updateQuery.$set = { ...updateQuery.$set, likedBy, likes };
+        }
+
+        if (Object.keys(updateQuery).length === 0) {
             return res.status(400).json({ message: 'No update data' });
         }
 
         const updatedArticle = await Article.findByIdAndUpdate(
             articleId,
-            { $set: updates },
+            updateQuery,
             { new: true, runValidators: true }
         );
 

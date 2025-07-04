@@ -14,7 +14,9 @@ const postUserHandler = async (req, res) => {
             role: 'admin',
             resetToken: null,
             resetTokenExpiry: null,
-            avatar
+            avatar,
+            articles: [],
+            paperclips: []
         });
 
         const savedUser = await newUser.save();
@@ -44,9 +46,9 @@ const getUserByIdHandler = async (req, res) => {
         const theme = req.cookies.theme || 'light';
 
         if (userProfile) {
-            res.render('user-profile.pug', { userProfile, theme, user: req.user });
+            res.status(200).json({ user: userProfile });
         } else {
-            res.status(404).send('User not found');
+            res.status(404).json({ message: 'User not found' });
         }
     } catch (error) {
         console.error('Error: get user by ID error', error);
@@ -57,29 +59,36 @@ const getUserByIdHandler = async (req, res) => {
 const putUserByIdHandler = async (req, res) => {
     try {
         const userId = req.params.id;
-        const { name, email, age, avatar, articleId, paperclips } = req.body;
+        const { name, email, age, avatar, articleId, paperclips, password } = req.body;
         const updates = {};
         if (name) updates.name = name;
         if (email) updates.email = email;
-        if (age) updates.age = age;
+        if (typeof age !== "undefined") updates.age = age;
         if (avatar) updates.avatar = avatar;
         updates.updatedAt = new Date();
-        if (articleId) {
-            await User.findByIdAndUpdate(
-                userId,
-                { $push: { articles: articleId }, $set: updates },
-                { new: true, runValidators: true }
-            );
+        if (typeof paperclips !== "undefined") updates.paperclips = paperclips;
+        updates.updatedAt = new Date();
+        if (password) {
+            const bcrypt = await import('bcrypt');
+            const salt = await bcrypt.genSalt(10);
+            updates.password = await bcrypt.hash(password, salt);
         }
-        if (paperclips) updates.paperclips = paperclips;
 
-        if (Object.keys(updates).length === 0) {
+        let updateQuery = { $set: updates };
+        if (articleId) {
+            updateQuery.$push = { articles: articleId };
+        }
+
+        if (
+            Object.keys(updates).length === 1 &&
+            !articleId
+        ) {
             return res.status(400).json({ message: 'No update data' });
         }
 
         const updatedUser = await User.findByIdAndUpdate(
             userId,
-            { $set: updates },
+            updateQuery,
             { new: true, runValidators: true }
         );
 

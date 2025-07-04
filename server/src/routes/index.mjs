@@ -10,11 +10,11 @@ import { protect, authorize } from "../middleware/authHandler.mjs";
 const router = Router();
 
 router.use('/', rootRouter);
-router.use('/theme', themeRouter);
-router.use('/auth', authRouter);
+router.use('/api/theme', themeRouter);
+router.use('/api/auth', authRouter);
 
-router.use('/users', usersRouter);
-router.use('/articles', articlesRouter);
+router.use('/api/users', usersRouter);
+router.use('/api/articles', articlesRouter);
 // protect, authorize('admin')
 
 export default router;

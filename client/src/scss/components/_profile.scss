@@ -1,0 +1,61 @@
+@use "_variables" as *;
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  gap: $gap-xs;
+  align-items: center;
+  margin-bottom: $gap-xxl;
+
+  &__img-frame {
+    max-width: 320px;
+    max-height: 320px;
+    padding: 0;
+    border-radius: 120px;
+    margin-bottom: $gap-lg;
+
+    img {
+      object-fit: cover;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+    }
+  }
+
+  &__line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 420px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: $gap-xxs;
+    text-align: left;
+  }
+
+  &__info-type {
+    display: inline-block;
+    width: 120px;
+    background-color: $color-font;
+    color: $color-background;
+    font-weight: 600;
+    padding: $gap-xxs;
+    text-align: center;
+    margin-right: $gap-sm;
+  }
+
+  &__info-articles {
+    display: inline-block;
+    width: 100%;
+    background-color: $color-font;
+    color: $color-background;
+    font-weight: 600;
+    padding: $gap-xxs;
+    text-align: center;
+    margin-right: $gap-sm;
+    margin-bottom: $gap-sm;
+  }
+}

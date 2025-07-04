@@ -12,6 +12,7 @@ import TopArticles from "../pages/TopArticles";
 import TopAuthors from "../pages/TopAuthors";
 import Forgot from "../pages/auth/Forgot";
 import Write from "../pages/Write";
+import CurrentUserProfile from "../pages/CurrentUserProfile";
 
 interface RouteConfig {
   path: string;
@@ -58,10 +59,16 @@ export const routes: RouteConfig[] = [
     showInNav: true,
   },
   {
+    path: "/myprofile",
+    Component: CurrentUserProfile,
+    label: "My Profile",
+    showInNav: true,
+  },
+  {
     path: "/users/:id",
     Component: Profile,
     label: "User Profile",
-    showInNav: true,
+    showInNav: false,
   },
   {
     path: "/top-articles",

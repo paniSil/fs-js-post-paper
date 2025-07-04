@@ -3,7 +3,7 @@ import { Context } from "../context/Context";
 import Button from "../components/helpers/Button";
 
 const TopAuthors = () => {
-  const { users } = useContext(Context);
+  const { users, getUserInfo } = useContext(Context);
 
   if (!users || users.length === 0) {
     return <p className="articles__empty">No registered users yet</p>;
@@ -13,13 +13,22 @@ const TopAuthors = () => {
     <div>
       <h2>Top Authors list</h2>
       <ol className="rating__list">
-        {users.map((user) => (
-          <li className="rating__item ">
-            <Button to={`users/${user._id}`} className="rating__link">
-              {user.name}
-            </Button>
-          </li>
-        ))}
+        {[...users]
+          .sort(
+            (a, b) =>
+              Number(a.articles?.length || 0) - Number(b.articles?.length || 0)
+          )
+          .map((user) => (
+            <li className="rating__item ">
+              <Button
+                to={`/users/${user._id}`}
+                onClick={() => getUserInfo(user._id)}
+                className="rating__link"
+              >
+                {user.name}
+              </Button>
+            </li>
+          ))}
       </ol>
     </div>
   );

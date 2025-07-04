@@ -5,9 +5,11 @@ import Button from "../helpers/Button";
 import { GoPaperclip } from "react-icons/go";
 import { BsStar } from "react-icons/bs";
 import { Context } from "../../context/Context";
+import LikeButton from "../helpers/LikeButton";
+import PaperclipButton from "../helpers/PaperclipButton";
 
 const ArticleFull = () => {
-  const { articles } = useContext(Context);
+  const { articles, getUserInfo } = useContext(Context);
   const { id } = useParams<{ id: string }>();
   const [article, setArticle] = useState<ArticleInterface | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -43,6 +45,7 @@ const ArticleFull = () => {
   }
 
   const {
+    _id,
     authorId,
     createdAt,
     cover,
@@ -51,6 +54,7 @@ const ArticleFull = () => {
     text,
     likes,
     paperclips,
+    likedBy,
   } = article;
   const author = users.find(
     (user) => user._id === authorId || user._id === authorId
@@ -65,7 +69,11 @@ const ArticleFull = () => {
               <img src={author ? author.avatar : ""} alt="avatar" />
             </div>
 
-            <Button className="link__button link-span__text">
+            <Button
+              to={`/users/${author!._id}`}
+              onClick={() => getUserInfo(author!._id)}
+              className="link__button link-span__text"
+            >
               {author ? author.name : authorId}
             </Button>
           </div>
@@ -89,18 +97,8 @@ const ArticleFull = () => {
       <div className="article__text--full">{text}</div>
       <div className="article__info">
         <div className="article__info">
-          <div className="article__button">
-            <Button className="link__button link">
-              <BsStar size="1.2rem" className="link__icon" />
-            </Button>
-            <span>{likes}</span>
-          </div>
-          <div className="article__button">
-            <Button className="link__button link">
-              <GoPaperclip size="1.2rem" className="link__icon" />
-            </Button>
-            <span>{paperclips}</span>
-          </div>
+          <LikeButton articleId={_id} likes={likes} likedBy={likedBy || []} />
+          <PaperclipButton articleId={_id} paperclips={paperclips} />
         </div>
       </div>
     </div>

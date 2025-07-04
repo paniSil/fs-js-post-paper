@@ -20,6 +20,25 @@ interface ContextType {
     password: string;
     age: string;
   }) => Promise<void>;
+  userInfo: UserInterface | null;
+  getUserInfo: (id: string) => Promise<void>;
+  setCurrentUser: (user: UserInterface | null) => void;
+  updatePaperclipsInContext: (articleId: string, increment: number) => void;
+  updateLikesInContext: (
+    articleId: string,
+    increment: number,
+    userId: string
+  ) => void;
+  updateUserInfo: (
+    id: string,
+    updatedProfile: {
+      name: string;
+      email: string;
+      password: string;
+      age: number | string;
+      avatar: string;
+    }
+  ) => Promise<void>;
 }
 
 const initialState: ContextType = {
@@ -30,6 +49,12 @@ const initialState: ContextType = {
   login: async () => {},
   logout: async () => {},
   register: async () => {},
+  userInfo: null,
+  getUserInfo: async () => {},
+  setCurrentUser: () => {},
+  updatePaperclipsInContext: () => {},
+  updateLikesInContext: () => {},
+  updateUserInfo: async () => {},
 };
 
 export const Context = createContext<ContextType>(initialState);

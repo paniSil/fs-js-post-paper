@@ -12,10 +12,11 @@ const Provider = ({ children }: ProviderProps) => {
   const [articles, setArticles] = useState<ArticleInterface[]>([]);
   const [users, setUsers] = useState<UserInterface[]>([]);
   const [currentUser, setCurrentUser] = useState<UserInterface | null>(null);
+  const [userInfo, setUserInfo] = useState<UserInterface | null>(null);
 
   useEffect(() => {
     axios
-      .get("/articles/api")
+      .get("/api/articles")
       .then((res) => {
         setArticles(res.data.articles || []);
       })
@@ -24,7 +25,7 @@ const Provider = ({ children }: ProviderProps) => {
       });
 
     axios
-      .get("/users/api")
+      .get("/api/users")
       .then((res) => {
         setUsers(res.data.users || []);
       })
@@ -32,12 +33,12 @@ const Provider = ({ children }: ProviderProps) => {
   }, []);
 
   const login = async (credentials: { email: string; password: string }) => {
-    const res = await axios.post("/auth/login", credentials);
+    const res = await axios.post("api/auth/login", credentials);
     setCurrentUser(res.data.user);
   };
 
   const logout = async () => {
-    await axios.post("/auth/logout");
+    await axios.post("api/auth/logout");
     setCurrentUser(null);
   };
 
@@ -47,7 +48,7 @@ const Provider = ({ children }: ProviderProps) => {
     password: string;
     age: string;
   }) => {
-    const res = await axios.post("/auth/register", credentials);
+    const res = await axios.post("api/auth/register", credentials);
     setCurrentUser(res.data.user);
   };
 
@@ -57,15 +58,81 @@ const Provider = ({ children }: ProviderProps) => {
     text: string;
     cover: string;
   }) => {
-    const res = await axios.post("/articles", article);
+    const res = await axios.post("api/articles", article);
     const newArticle = res.data.article;
     setArticles([...articles, newArticle]);
     if (currentUser) {
-      const updatedUserRes = await axios.put(`/users/${currentUser._id}`, {
+      const updatedUserRes = await axios.put(`api/users/${currentUser._id}`, {
         articleId: newArticle._id,
       });
       setCurrentUser(updatedUserRes.data.user);
     }
+  };
+
+  const getUserInfo = async (id: string) => {
+    try {
+      const res = await axios.get(`/api/users/${id}`);
+      setUserInfo(res.data.user || null);
+    } catch {
+      setUserInfo(null);
+    }
+  };
+
+  const updateUserInfo = async (
+    id: string,
+    updatedProfile: {
+      name: string;
+      email: string;
+      password: string;
+      age: number | string;
+      avatar: string;
+    }
+  ) => {
+    try {
+      const res = await axios.put(`api/users/${id}`, updatedProfile);
+      setCurrentUser(res.data.user || null);
+
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user._id === id ? { ...user, ...res.data.user } : user
+        )
+      );
+    } catch {
+      setCurrentUser(null);
+    }
+  };
+
+  const updatePaperclipsInContext = (articleId: string, increment: number) => {
+    setArticles((prevArticles) =>
+      prevArticles.map((article) =>
+        article._id === articleId
+          ? { ...article, paperclips: (article.paperclips || 0) + increment }
+          : article
+      )
+    );
+  };
+
+  const updateLikesInContext = (
+    articleId: string,
+    increment: number,
+    userId: string
+  ) => {
+    setArticles((prevArticles) =>
+      prevArticles.map((article) => {
+        if (article._id !== articleId) return article;
+        let likedBy = article.likedBy || [];
+        if (increment === 1) {
+          likedBy = [...likedBy, userId];
+        } else if (increment === -1) {
+          likedBy = likedBy.filter((id) => id !== userId);
+        }
+        return {
+          ...article,
+          likes: (article.likes || 0) + increment,
+          likedBy,
+        };
+      })
+    );
   };
 
   return (
@@ -75,9 +142,15 @@ const Provider = ({ children }: ProviderProps) => {
         articles,
         addArticle,
         currentUser,
+        setCurrentUser,
         login,
         logout,
         register,
+        userInfo,
+        getUserInfo,
+        updatePaperclipsInContext,
+        updateLikesInContext,
+        updateUserInfo,
       }}
     >
       {children}

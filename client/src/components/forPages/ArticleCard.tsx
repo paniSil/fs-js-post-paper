@@ -1,9 +1,9 @@
 import type { ArticleInterface } from "../../types/Article.interface";
-import { BsStar } from "react-icons/bs";
-import { GoPaperclip } from "react-icons/go";
 import Button from "../helpers/Button";
 import { Context } from "../../context/Context";
 import { useContext } from "react";
+import PaperclipButton from "../helpers/PaperclipButton";
+import LikeButton from "../helpers/LikeButton";
 
 interface ArticleProps {
   article: ArticleInterface;
@@ -20,12 +20,11 @@ const Article = ({
     likes,
     paperclips,
     cover,
+    likedBy,
   },
 }: ArticleProps) => {
-  const { users } = useContext(Context);
-  const author = users.find(
-    (user) => user._id === authorId || user._id === authorId
-  );
+  const { users, getUserInfo } = useContext(Context);
+  const author = users.find((user) => user._id === authorId);
 
   return (
     <div className="article">
@@ -35,10 +34,17 @@ const Article = ({
             <div className="article__avatar-frame">
               <img src={author ? author.avatar : ""} alt="avatar" />
             </div>
-
-            <Button className="link__button link-span__text">
-              {author ? author.name : authorId}
-            </Button>
+            {author ? (
+              <Button
+                to={`/users/${author._id}`}
+                onClick={() => getUserInfo(author!._id)}
+                className="link__button link-span__text"
+              >
+                {author ? author.name : authorId}
+              </Button>
+            ) : (
+              <span>{authorId}</span>
+            )}
           </div>
           <div className="article__date">
             {createdAt
@@ -60,18 +66,8 @@ const Article = ({
       <div className="article__text">{text}</div>
       <div className="article__info">
         <div className="article__info">
-          <div className="article__button">
-            <Button className="link__button link">
-              <BsStar size="1.2rem" className="link__icon" />
-            </Button>
-            <span>{likes}</span>
-          </div>
-          <div className="article__button">
-            <Button className="link__button link">
-              <GoPaperclip size="1.2rem" className="link__icon" />
-            </Button>
-            <span>{paperclips}</span>
-          </div>
+          <LikeButton articleId={_id} likes={likes} likedBy={likedBy || []} />
+          <PaperclipButton articleId={_id} paperclips={paperclips} />
         </div>
 
         <div className="article__readmore link-span">
