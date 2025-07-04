@@ -32,6 +32,20 @@ const Provider = ({ children }: ProviderProps) => {
       .catch(() => setUsers([]));
   }, []);
 
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await axios.get("/api/auth/check");
+        if (res.data.user) {
+          setCurrentUser(res.data.user);
+        }
+      } catch {
+        setCurrentUser(null);
+      }
+    };
+    checkAuth();
+  }, []);
+
   const login = async (credentials: { email: string; password: string }) => {
     const res = await axios.post("api/auth/login", credentials);
     setCurrentUser(res.data.user);

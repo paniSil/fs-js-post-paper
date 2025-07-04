@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Context } from "../context/Context";
 import Button from "../components/helpers/Button";
+import { PiHeartLight } from "react-icons/pi";
 
 const TopArticles = () => {
   const { articles } = useContext(Context);
@@ -18,7 +19,8 @@ const TopArticles = () => {
           .map((article) => (
             <li className="rating__item">
               <Button to={`/articles/${article._id}`} className="rating__link">
-                {article.title}
+                {article.title} - {article.likes}
+                <PiHeartLight size="1.2rem" className="link__icon" />
               </Button>
             </li>
           ))}

@@ -4,6 +4,13 @@ import Article from "../components/forPages/ArticleCard";
 
 const AllArticles = () => {
   const { articles } = useContext(Context);
+
+  const sortedArticles = [...articles].sort(
+    (a, b) =>
+      new Date(b.createdAt ?? 0).getTime() -
+      new Date(a.createdAt ?? 0).getTime()
+  );
+
   return (
     <div>
       <h2>All Articles</h2>
@@ -13,7 +20,7 @@ const AllArticles = () => {
         )}
       </div>
       <div>
-        {articles.map(function (article) {
+        {sortedArticles.map(function (article) {
           return <Article key={article._id} article={article} />;
         })}
       </div>

@@ -3,6 +3,7 @@ import passport from 'passport';
 import { getLoginPage, getRegisterPage, postRegisterPage } from '../controllers/auth/authPageHandler.mjs';
 import { postLogout } from '../controllers/auth/authLogout.mjs';
 import { getForgotPasswordPage, postForgotPassword, getResetPasswordPage, postResetPassword } from '../controllers/auth/forgotPasswordHandler.mjs';
+import { checkAuthHandler } from '../controllers/auth/checkAuthHandler.mjs';
 
 const authRouter = express.Router();
 
@@ -18,6 +19,7 @@ authRouter.post('/login', (req, res, next) => {
     })(req, res, next);
 });
 
+authRouter.get('/check', checkAuthHandler);
 authRouter.get('/me', (req, res) => {
     if (req.isAuthenticated && req.isAuthenticated()) {
         res.json({ user: req.user });

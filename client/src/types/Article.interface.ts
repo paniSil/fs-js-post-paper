@@ -4,8 +4,8 @@ export interface ArticleInterface {
   title: string;
   description: string;
   text: string;
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt: string;
+  updatedAt: string;
   likes: number;
   likedBy?: string[];
   paperclips: number;

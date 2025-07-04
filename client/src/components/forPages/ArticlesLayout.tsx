@@ -1,9 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Context } from "../../context/Context";
 import Article from "./ArticleCard";
 
 const Articles = () => {
   const { articles } = useContext(Context);
+
+  const sortedArticles = [...articles].sort(
+    (a, b) =>
+      new Date(b.createdAt ?? 0).getTime() -
+      new Date(a.createdAt ?? 0).getTime()
+  );
 
   if (!articles || articles.length === 0) {
     return <p className="articles__empty">No published articles yet</p>;
@@ -11,10 +17,10 @@ const Articles = () => {
 
   return (
     <div>
-      <Article key={articles[0]._id} article={articles[0]} />
+      <Article key={sortedArticles[0]._id} article={sortedArticles[0]} />
 
       <div className="articles-grid">
-        {articles.slice(1).map((article) =>
+        {sortedArticles.slice(1).map((article) =>
           article && article._id ? (
             <div className="article--small" key={article._id}>
               <Article article={article} />

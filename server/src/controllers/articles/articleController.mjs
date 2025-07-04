@@ -40,8 +40,6 @@ const getArticlesHandler = async (req, res) => {
       } catch (e) {
         return res.status(400).json({ message: 'Wrong sort format. Provide JSON' });
       }
-    } else {
-      query = query.sort({ createdAt: -1 });
     }
 
     const articles = await query.exec();

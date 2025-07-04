@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Context } from "../context/Context";
 import Button from "../components/helpers/Button";
+import { PiArticleLight } from "react-icons/pi";
 
 const TopAuthors = () => {
   const { users, getUserInfo } = useContext(Context);
@@ -16,7 +17,7 @@ const TopAuthors = () => {
         {[...users]
           .sort(
             (a, b) =>
-              Number(a.articles?.length || 0) - Number(b.articles?.length || 0)
+              Number(b.articles?.length || 0) - Number(a.articles?.length || 0)
           )
           .map((user) => (
             <li className="rating__item ">
@@ -25,7 +26,8 @@ const TopAuthors = () => {
                 onClick={() => getUserInfo(user._id)}
                 className="rating__link"
               >
-                {user.name}
+                {user.name} - {user.articles.length}
+                <PiArticleLight size="1.2rem" className="link__icon" />
               </Button>
             </li>
           ))}

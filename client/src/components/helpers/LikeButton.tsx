@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Context } from "../../context/Context";
 import Button from "./Button";
-import { BsStar } from "react-icons/bs";
+import { PiHeartDuotone, PiHeartLight } from "react-icons/pi";
 
 type Props = {
   articleId: string;
@@ -52,9 +52,9 @@ const LikeButton = ({ articleId, likes, likedBy }: Props) => {
         className="link__button link"
       >
         {isLiked ? (
-          <BsStar size="1.2rem" className="link__icon--pressed" />
+          <PiHeartDuotone size="1.2rem" className="link__icon--pressed" />
         ) : (
-          <BsStar size="1.2rem" className="link__icon" />
+          <PiHeartLight size="1.2rem" className="link__icon" />
         )}
       </Button>
       <span>{likes}</span>

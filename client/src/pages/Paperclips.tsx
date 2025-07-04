@@ -24,9 +24,13 @@ const Paperclips = () => {
         {currentUser?.paperclips && currentUser.paperclips.length > 0 ? (
           articles
             .filter((article) =>
-              currentUser.paperclips?.map(String).includes(String(article._id))
+              currentUser.paperclips.map(String).includes(String(article._id))
             )
-            .reverse()
+            .sort(
+              (a, b) =>
+                new Date(b.createdAt ?? 0).getTime() -
+                new Date(a.createdAt ?? 0).getTime()
+            )
             .map((article) => <Article key={article._id} article={article} />)
         ) : (
           <p className="articles__empty">
