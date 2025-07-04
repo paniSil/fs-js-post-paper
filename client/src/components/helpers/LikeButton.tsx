@@ -31,7 +31,7 @@ const LikeButton = ({ articleId, likes, likedBy }: Props) => {
         newCount = 1;
       }
 
-      await fetch(`/articles/${articleId}`, {
+      await fetch(`/api/articles/${articleId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ likedBy: newLikedBy, likes: likes + newCount }),

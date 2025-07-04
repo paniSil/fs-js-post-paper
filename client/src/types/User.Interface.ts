@@ -8,6 +8,6 @@ export interface UserInterface {
   resetToken: string;
   resetTokenExpiry: Date;
   avatar: string;
-  articles?: string[];
-  paperclips?: string[];
+  articles: string[];
+  paperclips: string[];
 }

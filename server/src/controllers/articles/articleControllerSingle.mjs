@@ -63,7 +63,6 @@ const putArticleByIdHandler = async (req, res) => {
         const articleId = req.params.id;
         const { title, text, paperclipsIncrement, likedBy, likes } = req.body;
         const updates = {};
-        console.log(likedBy, likes)
         if (title) updates.title = title;
         if (text) updates.text = text;
 

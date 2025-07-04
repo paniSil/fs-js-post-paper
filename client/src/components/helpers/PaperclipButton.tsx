@@ -13,7 +13,7 @@ const PaperclipButton = ({ articleId, paperclips }: Props) => {
     useContext(Context);
   const [loading, setLoading] = useState(false);
 
-  const isBookmarked = currentUser?.paperclips?.includes(articleId);
+  const isBookmarked = currentUser?.paperclips.includes(articleId);
 
   const togglePaperclip = async () => {
     if (!currentUser) return;
@@ -24,30 +24,40 @@ const PaperclipButton = ({ articleId, paperclips }: Props) => {
       let newCount;
 
       if (isBookmarked) {
-        newPaperclips = currentUser.paperclips?.filter(
-          (id) => id !== articleId
-        );
+        newPaperclips = currentUser.paperclips.filter((id) => id !== articleId);
         newCount = -1;
       } else {
-        newPaperclips = [...(currentUser.paperclips || []), articleId];
+        newPaperclips = [...currentUser.paperclips, articleId];
         newCount = 1;
       }
-      const res = await fetch(`/users/${currentUser._id}`, {
+
+      const userRes = await fetch(`/api/users/${currentUser._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ paperclips: newPaperclips }),
         credentials: "include",
       });
 
-      await fetch(`/articles/${articleId}`, {
+      if (!userRes.ok) {
+        console.error("User update failed:", await userRes.text());
+        return;
+      }
+
+      const articleRes = await fetch(`/api/articles/${articleId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ paperclipsIncrement: newCount }),
         credentials: "include",
       });
+
+      if (!articleRes.ok) {
+        console.error("Article update failed:", await articleRes.text());
+        return;
+      }
+
       updatePaperclipsInContext(articleId, newCount);
 
-      const data = await res.json();
+      const data = await userRes.json();
       setCurrentUser(data.user);
     } finally {
       setLoading(false);
