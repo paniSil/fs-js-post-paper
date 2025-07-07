@@ -59,7 +59,7 @@ const getUserByIdHandler = async (req, res) => {
 const putUserByIdHandler = async (req, res) => {
     try {
         const userId = req.params.id;
-        const { name, email, age, avatar, articleId, paperclips, password } = req.body;
+        const { name, email, age, avatar, articleId, paperclips, password, removeArticleId } = req.body;
         const updates = {};
         if (name) updates.name = name;
         if (email) updates.email = email;
@@ -74,14 +74,22 @@ const putUserByIdHandler = async (req, res) => {
             updates.password = await bcrypt.hash(password, salt);
         }
 
-        let updateQuery = { $set: updates };
+        let updateQuery = {};
+        if (Object.keys(updates).length > 0) {
+            updateQuery.$set = updates;
+        }
+
+        if (removeArticleId) {
+            updateQuery.$pull = { articles: removeArticleId };
+        }
+
         if (articleId) {
             updateQuery.$push = { articles: articleId };
         }
 
         if (
-            Object.keys(updates).length === 1 &&
-            !articleId
+            Object.keys(updateQuery).length === 0 ||
+            (Object.keys(updateQuery).length === 1 && updateQuery.$set && Object.keys(updateQuery.$set).length === 1 && updateQuery.$set.updatedAt)
         ) {
             return res.status(400).json({ message: 'No update data' });
         }

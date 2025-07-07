@@ -19,6 +19,7 @@ const updateUserSchema = Joi.object({
     avatar: Joi.string().uri().optional(),
     articles: Joi.array().items(Joi.string().hex().length(24)).optional(),
     paperclips: Joi.array().items(Joi.string().hex().length(24)).optional(),
+    removeArticleId: Joi.string().hex().length(24).optional()
 });
 
 const validateUserBody = celebrate({

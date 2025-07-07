@@ -13,6 +13,7 @@ import TopAuthors from "../pages/TopAuthors";
 import Forgot from "../pages/auth/Forgot";
 import Write from "../pages/Write";
 import CurrentUserProfile from "../pages/CurrentUserProfile";
+import EditArticle from "../pages/EditArticle";
 
 interface RouteConfig {
   path: string;
@@ -38,6 +39,12 @@ export const routes: RouteConfig[] = [
     path: "/articles/:id",
     Component: Article,
     label: "Full Article",
+    showInNav: false,
+  },
+  {
+    path: "/articles/edit/:id",
+    Component: EditArticle,
+    label: "Edit Article",
     showInNav: false,
   },
   {
@@ -112,5 +119,4 @@ export const routes: RouteConfig[] = [
     label: "Forgot",
     showInNav: false,
   },
-  // Add Colophon ???
 ];

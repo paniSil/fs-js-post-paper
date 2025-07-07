@@ -24,7 +24,7 @@ const TopAuthors = () => {
           )
           .slice(0, 5)
           .map((user) => (
-            <li className="sidebar__item article__author ">
+            <li className="sidebar__item article__author" key={user._id}>
               <Button
                 to={`/users/${user._id}`}
                 onClick={() => getUserInfo(user._id)}

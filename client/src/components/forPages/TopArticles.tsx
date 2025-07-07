@@ -22,7 +22,7 @@ const TopArticles = () => {
           .sort((a, b) => b.likes - a.likes)
           .slice(0, 3)
           .map((article) => (
-            <li className="sidebar__item">
+            <li className="sidebar__item" key={article._id}>
               <Button to={`/articles/${article._id}`} className="sidebar__link">
                 <PiArticleLight size="1.5rem" className="link__icon" />
                 {article.title}

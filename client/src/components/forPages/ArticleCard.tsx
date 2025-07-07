@@ -71,7 +71,7 @@ const Article = ({
         </div>
 
         <div className="article__readmore link-span">
-          <Button className="link-span__text" onClick={()=>getArticleInfo(_id)} to={`/articles/${_id}`}>
+          <Button className="link-span__text" to={`/articles/${_id}`}>
             read more...
           </Button>
         </div>

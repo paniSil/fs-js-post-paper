@@ -24,7 +24,6 @@ interface ContextType {
   }) => Promise<void>;
   userInfo: UserInterface | null;
   getUserInfo: (id: string) => Promise<void>;
-  getArticleInfo: (id: string) => Promise<void>;
   setCurrentUser: (user: UserInterface | null) => void;
   updatePaperclipsInContext: (articleId: string, increment: number) => void;
   updateLikesInContext: (
@@ -42,13 +41,16 @@ interface ContextType {
       avatar: string;
     }
   ) => Promise<void>;
-  updateArticle: (id: string,
+  updateArticle: (
+    id: string,
     updatedArticle: {
       title: string;
       description: string;
       text: string;
       cover: string;
-    }) => Promise<void>;
+    }
+  ) => Promise<void>;
+  deleteArticle: (id: string) => Promise<void>;
   isLoading: boolean;
   isUserInfoLoading: boolean;
   error: string | null;
@@ -75,12 +77,12 @@ const initialState: ContextType = {
   register: async () => {},
   userInfo: null,
   getUserInfo: async () => {},
-  getArticleInfo: async () => {},
   setCurrentUser: () => {},
   updatePaperclipsInContext: () => {},
   updateLikesInContext: () => {},
   updateUserInfo: async () => {},
-  updateArticle: async () => {}
+  updateArticle: async () => {},
+  deleteArticle: async () => {},
 };
 
 export const Context = createContext<ContextType>(initialState);

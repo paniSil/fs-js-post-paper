@@ -5,13 +5,15 @@ import Button from "../helpers/Button";
 import { Context } from "../../context/Context";
 import LikeButton from "../helpers/LikeButton";
 import PaperclipButton from "../helpers/PaperclipButton";
-import EditArticle from "../../pages/EditArticle";
+import { FiEdit } from "react-icons/fi";
+import { RiDeleteBinLine } from "react-icons/ri";
 
 const ArticleFull = () => {
-  const { articles, getUserInfo, users, currentUser, articleInfo } = useContext(Context);
+  const { articles, getUserInfo, users, currentUser, deleteArticle } =
+    useContext(Context);
   const { id } = useParams<{ id: string }>();
   const [article, setArticle] = useState<ArticleInterface | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);  
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     setLoading(true);
@@ -98,16 +100,28 @@ const ArticleFull = () => {
           <LikeButton articleId={_id} likes={likes} likedBy={likedBy || []} />
           <PaperclipButton articleId={_id} paperclips={paperclips} />
         </div>
-        <div className="article__info"> 
-          {currentUser?._id === article.authorId && (<div className="article__button">
-<Button
-            onClick={() => EditArticle(article._id)}
-            className="navbar__link"
-          >
-            Edit
-          </Button>
-          </div>)}
-      </div>
+        <div className="article__info">
+          {currentUser?._id === article.authorId && (
+            <>
+              <div className="article__button">
+                <Button
+                  onClick={() => deleteArticle(article._id)}
+                  className="link__button link"
+                >
+                  <RiDeleteBinLine size="1.2rem" className="link__icon" />
+                </Button>
+              </div>
+              <div className="article__button">
+                <Button
+                  to={`/articles/edit/${article._id}`}
+                  className="link__button link"
+                >
+                  <FiEdit size="1.2rem" className="link__icon" />
+                </Button>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

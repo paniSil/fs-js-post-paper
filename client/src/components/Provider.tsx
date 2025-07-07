@@ -10,8 +10,6 @@ interface ProviderProps {
 
 const Provider = ({ children }: ProviderProps) => {
   const [articles, setArticles] = useState<ArticleInterface[]>([]);
-  const [articleInfo, setArticleInfo] = useState<ArticleInterface | null>(null);
-    const [isArticleInfoLoading, setIsArticleInfoLoading] = useState(false);
   const [allArticles, setAllArticles] = useState<ArticleInterface[]>([]);
   const [users, setUsers] = useState<UserInterface[]>([]);
   const [currentUser, setCurrentUser] = useState<UserInterface | null>(null);
@@ -182,22 +180,6 @@ const Provider = ({ children }: ProviderProps) => {
     }
   };
 
-    const getArticleInfo = async (id: string) => {
-      console.log(id)
-    setIsArticleInfoLoading(true);
-    try {
-      const res = await axios.get(`/api/articles/${id}`);
-      setArticleInfo(res.data.article || null);
-      console.log(res)
-    } catch {
-      setArticleInfo(null);
-      console.log(id)
-    } finally {
-      setIsArticleInfoLoading(false);
-      console.log(id)
-    }
-  };
-
   const updateArticle = async (
     id: string,
     updatedArticle: {
@@ -208,15 +190,53 @@ const Provider = ({ children }: ProviderProps) => {
     }
   ) => {
     try {
-      const res = await axios.put(`api/articles/${id}`, updatedArticle);
+      const res = await axios.put(`/api/articles/${id}`, updatedArticle);
+      const updatedArticleData = res.data.article;
 
       setAllArticles((prevArticles) =>
         prevArticles.map((article) =>
-          article._id === id ? { ...article, ...res.data.article } : article
+          article._id === id ? { ...article, ...updatedArticleData } : article
         )
       );
+
+      setArticles((prevArticles) =>
+        prevArticles.map((article) =>
+          article._id === id ? { ...article, ...updatedArticleData } : article
+        )
+      );
+
+      return res.data.article;
     } catch {
       console.log(error);
+    }
+  };
+
+  const deleteArticle = async (id: string) => {
+    try {
+      const res = await axios.delete(`/api/articles/${id}`);
+
+      setAllArticles((prevArticles) =>
+        prevArticles.filter((article) => article._id !== id)
+      );
+
+      setArticles((prevArticles) =>
+        prevArticles.filter((article) => article._id !== id)
+      );
+
+      if (currentUser && currentUser.articles) {
+        const updatedUserRes = await axios.put(
+          `/api/users/${currentUser._id}`,
+          {
+            removeArticleId: id,
+          }
+        );
+
+        setCurrentUser(updatedUserRes.data.user);
+      }
+      return res.data;
+    } catch (err) {
+      console.error("Error deleting article:", err);
+      throw err;
     }
   };
 
@@ -266,7 +286,6 @@ const Provider = ({ children }: ProviderProps) => {
         register,
         userInfo,
         getUserInfo,
-        getArticleInfo,
         updatePaperclipsInContext,
         updateLikesInContext,
         updateUserInfo,
@@ -277,7 +296,8 @@ const Provider = ({ children }: ProviderProps) => {
         page,
         allArticles,
         isUserInfoLoading,
-        updateArticle
+        updateArticle,
+        deleteArticle,
       }}
     >
       {isLoading && !articles.length ? <div>Loading...</div> : children}

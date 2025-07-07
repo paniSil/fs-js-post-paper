@@ -61,10 +61,12 @@ const putArticleByIdHandler = async (req, res) => {
     try {
 
         const articleId = req.params.id;
-        const { title, text, paperclipsIncrement, likedBy, likes } = req.body;
+        const { title, description, text, cover, paperclipsIncrement, likedBy, likes } = req.body;
         const updates = {};
         if (title) updates.title = title;
+        if (description) updates.description = description;
         if (text) updates.text = text;
+        if (cover) updates.cover = cover;
 
         let updateQuery = {};
         if (Object.keys(updates).length > 0) {
