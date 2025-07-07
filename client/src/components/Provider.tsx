@@ -10,26 +10,88 @@ interface ProviderProps {
 
 const Provider = ({ children }: ProviderProps) => {
   const [articles, setArticles] = useState<ArticleInterface[]>([]);
+  const [allArticles, setAllArticles] = useState<ArticleInterface[]>([]);
   const [users, setUsers] = useState<UserInterface[]>([]);
   const [currentUser, setCurrentUser] = useState<UserInterface | null>(null);
   const [userInfo, setUserInfo] = useState<UserInterface | null>(null);
+  const [isUserInfoLoading, setIsUserInfoLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const LIMIT = 5;
+
+  const fetchInitialData = async () => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const [articlesRes, usersRes, allArticlesRes] = await Promise.all([
+        axios.get(`/api/articles?page=1&limit=${LIMIT}&sort={"createdAt":-1}`),
+        axios.get("/api/users"),
+        axios.get("/api/articles"),
+      ]);
+
+      if (articlesRes.data.articles) {
+        setArticles(articlesRes.data.articles);
+        setHasMore(articlesRes.data.articles.length === LIMIT);
+        setPage(1);
+      }
+
+      if (usersRes.data.users) {
+        setUsers(usersRes.data.users);
+      }
+
+      if (allArticlesRes.data.articles) {
+        setAllArticles(allArticlesRes.data.articles);
+      }
+    } catch (err) {
+      setError("Failed to load initial data");
+      console.error("Loading error:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const loadMoreArticles = async () => {
+    if (!hasMore || isLoading) {
+      return;
+    }
+    setIsLoading(true);
+
+    try {
+      const nextPage = page + 1;
+      const url = `/api/articles?page=${nextPage}&limit=${LIMIT}&sort={"createdAt":-1}`;
+      console.log("Fetching URL:", url);
+
+      const res = await axios.get(url);
+      console.log("Response data:", res.data);
+
+      if (res.data.articles && res.data.articles.length > 0) {
+        const hasMoreFromServer = res.data.pagination?.hasMore;
+
+        setArticles((prev) => [...prev, ...res.data.articles]);
+        setHasMore(
+          hasMoreFromServer !== undefined
+            ? hasMoreFromServer
+            : res.data.articles.length === LIMIT
+        );
+
+        setPage(nextPage);
+      } else {
+        setHasMore(false);
+      }
+    } catch (err) {
+      setError("Failed to load more articles");
+      console.error("Loading more error:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    axios
-      .get("/api/articles")
-      .then((res) => {
-        setArticles(res.data.articles || []);
-      })
-      .catch(() => {
-        setArticles([]);
-      });
-
-    axios
-      .get("/api/users")
-      .then((res) => {
-        setUsers(res.data.users || []);
-      })
-      .catch(() => setUsers([]));
+    fetchInitialData();
   }, []);
 
   useEffect(() => {
@@ -84,11 +146,14 @@ const Provider = ({ children }: ProviderProps) => {
   };
 
   const getUserInfo = async (id: string) => {
+    setIsUserInfoLoading(true);
     try {
       const res = await axios.get(`/api/users/${id}`);
       setUserInfo(res.data.user || null);
     } catch {
       setUserInfo(null);
+    } finally {
+      setIsUserInfoLoading(false);
     }
   };
 
@@ -165,9 +230,16 @@ const Provider = ({ children }: ProviderProps) => {
         updatePaperclipsInContext,
         updateLikesInContext,
         updateUserInfo,
+        isLoading,
+        error,
+        hasMore,
+        loadMoreArticles,
+        page,
+        allArticles,
+        isUserInfoLoading,
       }}
     >
-      {children}
+      {isLoading && !articles.length ? <div>Loading...</div> : children}
     </Context.Provider>
   );
 };

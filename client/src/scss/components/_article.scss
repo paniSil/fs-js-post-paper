@@ -1,10 +1,15 @@
 @use "_variables" as *;
 .articles-grid {
-  column-count: 2;
-  column-gap: $gap-sm;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $gap-sm;
   margin-left: $gap-md;
   margin-right: $gap-md;
   margin-bottom: $gap-xs;
+
+  & > *:first-child {
+    grid-column: span 2;
+  }
 }
 
 .article {

@@ -3,10 +3,10 @@ import { Context } from "../context/Context";
 import Button from "../components/helpers/Button";
 
 const Profile = () => {
-  const { userInfo, articles } = useContext(Context);
+  const { userInfo, allArticles, isUserInfoLoading } = useContext(Context);
 
-  if (!userInfo) {
-    return <p>No info about the user!</p>;
+  if (isUserInfoLoading || !userInfo) {
+    return <p>Loading user information...</p>;
   }
 
   return (
@@ -38,7 +38,7 @@ const Profile = () => {
           </span>
           <ol className="rating__list">
             {userInfo?.articles && userInfo.articles.length > 0 ? (
-              articles
+              allArticles
                 .filter((article) =>
                   userInfo.articles?.map(String).includes(String(article._id))
                 )

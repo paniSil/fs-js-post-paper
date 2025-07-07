@@ -4,6 +4,7 @@ import type { UserInterface } from "../types/User.Interface";
 
 interface ContextType {
   articles: ArticleInterface[];
+  allArticles: ArticleInterface[];
   addArticle: (credentials: {
     title: string;
     description: string;
@@ -39,11 +40,24 @@ interface ContextType {
       avatar: string;
     }
   ) => Promise<void>;
+  isLoading: boolean;
+  isUserInfoLoading: boolean;
+  error: string | null;
+  page: number;
+  hasMore: boolean;
+  loadMoreArticles: () => Promise<void>;
 }
 
 const initialState: ContextType = {
+  isUserInfoLoading: false,
+  isLoading: false,
+  error: null,
+  page: 1,
+  hasMore: true,
+  loadMoreArticles: async () => {},
   users: [],
   articles: [],
+  allArticles: [],
   addArticle: async () => {},
   currentUser: null,
   login: async () => {},

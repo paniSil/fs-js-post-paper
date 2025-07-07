@@ -1,28 +1,48 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "../helpers/Button";
 import { Context } from "../../context/Context";
 import type { ArticleInterface } from "../../types/Article.interface";
 import { RxUpdate } from "react-icons/rx";
 
-const getRandom = (articles: ArticleInterface[]) => {
-  return articles[Math.floor(Math.random() * articles.length)];
+const getRandom = (articles: ArticleInterface[], prev?: ArticleInterface) => {
+  if (!articles.length) return undefined;
+  if (articles.length === 1) return articles[0];
+
+  const availableArticles = prev
+    ? articles.filter((article) => article._id !== prev._id)
+    : articles;
+
+  return availableArticles[
+    Math.floor(Math.random() * availableArticles.length)
+  ];
 };
 
 const RandomArticle = () => {
-  const { articles } = useContext(Context);
+  const { allArticles } = useContext(Context);
+  const [randomArticle, setRandomArticle] = useState<
+    ArticleInterface | undefined
+  >(undefined);
 
-  if (!articles || articles.length === 0) {
+  useEffect(() => {
+    if (allArticles && allArticles.length > 0) {
+      setRandomArticle(getRandom(allArticles));
+    }
+  }, [allArticles]);
+
+  if (!allArticles || allArticles.length === 0) {
     return <p className="articles__empty">No articles yet</p>;
   }
 
-  const [randomArticle, setRandomArticle] = useState(() => getRandom(articles));
+  if (!randomArticle) {
+    return <p className="articles__empty">Loading random article...</p>;
+  }
 
   return (
     <div className="sidebar__block">
       <h3>
         <Button
           onClick={() => {
-            setRandomArticle(getRandom(articles));
+            setRandomArticle(getRandom(allArticles, randomArticle));
           }}
           className="link__button navbar__link"
         >

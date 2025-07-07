@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import Article from "../components/forPages/ArticleCard";
 
 const Paperclips = () => {
-  const { currentUser, articles } = useContext(Context);
+  const { currentUser, allArticles } = useContext(Context);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const Paperclips = () => {
       <h2>My Paperclips</h2>
       <div>
         {currentUser?.paperclips && currentUser.paperclips.length > 0 ? (
-          articles
+          allArticles
             .filter((article) =>
               currentUser.paperclips.map(String).includes(String(article._id))
             )

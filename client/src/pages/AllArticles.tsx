@@ -4,13 +4,8 @@ import Article from "../components/forPages/ArticleCard";
 import Button from "../components/helpers/Button";
 
 const AllArticles = () => {
-  const { articles } = useContext(Context);
-
-  const sortedArticles = [...articles].sort(
-    (a, b) =>
-      new Date(b.createdAt ?? 0).getTime() -
-      new Date(a.createdAt ?? 0).getTime()
-  );
+  const { articles, hasMore, loadMoreArticles, isLoading } =
+    useContext(Context);
 
   return (
     <div>
@@ -21,15 +16,21 @@ const AllArticles = () => {
         )}
       </div>
       <div className="container-main--paddings ">
-        {sortedArticles.map(function (article) {
-          return <Article key={article._id} article={article} />;
-        })}
+        {articles.map((article) => (
+          <Article key={article._id} article={article} />
+        ))}
       </div>
-      <div className="link__more-articles">
-        <Button to="/articles" className="link">
-          Discover more articles
-        </Button>
-      </div>
+      {hasMore && (
+        <div className="link__more-articles">
+          <Button
+            onClick={loadMoreArticles}
+            disabled={isLoading}
+            className="navbar__link"
+          >
+            {isLoading ? "Loading..." : "Discover more articles"}
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

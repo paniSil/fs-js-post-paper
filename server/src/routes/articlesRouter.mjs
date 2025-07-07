@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { validateArticleBody, validateParamsArticleId, validateUpdateManyArticlesBody, validateReplaceArticle, validateUpdateArticleBody } from '../validators/articleValidation.mjs'
 import { addNewArticleHandler, addNewArticlePageHandler, getArticleStatsPageHandler } from '../controllers/articles/articlePageControllers.mjs';
-import { getArticlesHandler, getArticleStatsHandler } from '../controllers/articles/articleController.mjs';
+import { getArticlesHandler, getArticleStatsHandler, getUserArticlesHandler } from '../controllers/articles/articleController.mjs';
 import { postArticleHandler, replaceArticleHandler, getArticleByIdHandler, putArticleByIdHandler, deleteArticleByIdHandler } from '../controllers/articles/articleControllerSingle.mjs';
 import { postManyArticlesHandler, putManyArticlesHandler, deleteManyArticles } from '../controllers/articles/articlesControllerMany.mjs';
 
@@ -15,6 +15,8 @@ articlesRouter
     .route('/')
     .get(getArticlesHandler)
     .post(validateArticleBody, postArticleHandler)
+
+articlesRouter.get('/user/:userId', getUserArticlesHandler);
 
 articlesRouter
     .route('/many')
