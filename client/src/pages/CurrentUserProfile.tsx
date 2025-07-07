@@ -31,7 +31,7 @@ const CurrentUserProfile = () => {
     <div className="profile">
       <h2>{`${currentUser.name}'s`} Author's Profile</h2>
       <div className="profile__img-frame">
-        <img src={currentUser?.avatar} alt="" />
+        <img src={currentUser?.avatar} alt="user avatar" />
       </div>
 
       <Formik
@@ -55,7 +55,7 @@ const CurrentUserProfile = () => {
             resetForm();
             navigate("/");
           } catch (error) {
-            alert(`Article creation failed! ${error}`);
+            alert(`User update failed! ${error}`);
           } finally {
             setSubmitting(false);
           }

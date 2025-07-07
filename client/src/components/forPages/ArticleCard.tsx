@@ -23,7 +23,7 @@ const Article = ({
     likedBy,
   },
 }: ArticleProps) => {
-  const { users, getUserInfo } = useContext(Context);
+  const { users, getUserInfo, getArticleInfo } = useContext(Context);
   const author = users.find((user) => user._id === authorId);
 
   return (
@@ -71,7 +71,7 @@ const Article = ({
         </div>
 
         <div className="article__readmore link-span">
-          <Button className="link-span__text" to={`/articles/${_id}`}>
+          <Button className="link-span__text" onClick={()=>getArticleInfo(_id)} to={`/articles/${_id}`}>
             read more...
           </Button>
         </div>

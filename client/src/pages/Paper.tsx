@@ -51,7 +51,6 @@ const Paper = () => {
 
   return (
     <>
-      {" "}
       <div className="container-main--paddings">
         <h2>My Paper</h2>
         <div>

@@ -10,6 +10,8 @@ interface ProviderProps {
 
 const Provider = ({ children }: ProviderProps) => {
   const [articles, setArticles] = useState<ArticleInterface[]>([]);
+  const [articleInfo, setArticleInfo] = useState<ArticleInterface | null>(null);
+    const [isArticleInfoLoading, setIsArticleInfoLoading] = useState(false);
   const [allArticles, setAllArticles] = useState<ArticleInterface[]>([]);
   const [users, setUsers] = useState<UserInterface[]>([]);
   const [currentUser, setCurrentUser] = useState<UserInterface | null>(null);
@@ -17,7 +19,6 @@ const Provider = ({ children }: ProviderProps) => {
   const [isUserInfoLoading, setIsUserInfoLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const LIMIT = 5;
@@ -181,6 +182,44 @@ const Provider = ({ children }: ProviderProps) => {
     }
   };
 
+    const getArticleInfo = async (id: string) => {
+      console.log(id)
+    setIsArticleInfoLoading(true);
+    try {
+      const res = await axios.get(`/api/articles/${id}`);
+      setArticleInfo(res.data.article || null);
+      console.log(res)
+    } catch {
+      setArticleInfo(null);
+      console.log(id)
+    } finally {
+      setIsArticleInfoLoading(false);
+      console.log(id)
+    }
+  };
+
+  const updateArticle = async (
+    id: string,
+    updatedArticle: {
+      title: string;
+      description: string;
+      text: string;
+      cover: string;
+    }
+  ) => {
+    try {
+      const res = await axios.put(`api/articles/${id}`, updatedArticle);
+
+      setAllArticles((prevArticles) =>
+        prevArticles.map((article) =>
+          article._id === id ? { ...article, ...res.data.article } : article
+        )
+      );
+    } catch {
+      console.log(error);
+    }
+  };
+
   const updatePaperclipsInContext = (articleId: string, increment: number) => {
     setArticles((prevArticles) =>
       prevArticles.map((article) =>
@@ -227,6 +266,7 @@ const Provider = ({ children }: ProviderProps) => {
         register,
         userInfo,
         getUserInfo,
+        getArticleInfo,
         updatePaperclipsInContext,
         updateLikesInContext,
         updateUserInfo,
@@ -237,6 +277,7 @@ const Provider = ({ children }: ProviderProps) => {
         page,
         allArticles,
         isUserInfoLoading,
+        updateArticle
       }}
     >
       {isLoading && !articles.length ? <div>Loading...</div> : children}

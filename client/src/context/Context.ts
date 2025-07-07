@@ -13,6 +13,7 @@ interface ContextType {
   }) => Promise<void>;
   users: UserInterface[];
   currentUser: UserInterface | null;
+  articleInfo: ArticleInterface | null;
   login: (credentials: { email: string; password: string }) => Promise<void>;
   logout: () => Promise<void>;
   register: (credentials: {
@@ -23,6 +24,7 @@ interface ContextType {
   }) => Promise<void>;
   userInfo: UserInterface | null;
   getUserInfo: (id: string) => Promise<void>;
+  getArticleInfo: (id: string) => Promise<void>;
   setCurrentUser: (user: UserInterface | null) => void;
   updatePaperclipsInContext: (articleId: string, increment: number) => void;
   updateLikesInContext: (
@@ -40,6 +42,13 @@ interface ContextType {
       avatar: string;
     }
   ) => Promise<void>;
+  updateArticle: (id: string,
+    updatedArticle: {
+      title: string;
+      description: string;
+      text: string;
+      cover: string;
+    }) => Promise<void>;
   isLoading: boolean;
   isUserInfoLoading: boolean;
   error: string | null;
@@ -60,15 +69,18 @@ const initialState: ContextType = {
   allArticles: [],
   addArticle: async () => {},
   currentUser: null,
+  articleInfo: null,
   login: async () => {},
   logout: async () => {},
   register: async () => {},
   userInfo: null,
   getUserInfo: async () => {},
+  getArticleInfo: async () => {},
   setCurrentUser: () => {},
   updatePaperclipsInContext: () => {},
   updateLikesInContext: () => {},
   updateUserInfo: async () => {},
+  updateArticle: async () => {}
 };
 
 export const Context = createContext<ContextType>(initialState);
