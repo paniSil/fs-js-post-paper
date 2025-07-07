@@ -61,7 +61,7 @@ const ArticleFull = () => {
   );
 
   return (
-    <div className="article">
+    <div className="article container-main--paddings">
       <div className="article__header">
         <div className="article__info">
           <div className="article__author link-span">

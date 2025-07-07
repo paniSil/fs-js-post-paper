@@ -1,6 +1,8 @@
 @use "_variables" as *;
 
 .sidebar {
+  padding-left: $gap-md;
+  margin-bottom: $gap-lg;
   &__block {
     border-bottom: $border-sm;
     padding-bottom: $gap-md;

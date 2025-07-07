@@ -11,7 +11,7 @@ const TopAuthors = () => {
   }
 
   return (
-    <div>
+    <div className="container-main--paddings">
       <h2>Top Authors list</h2>
       <ol className="rating__list">
         {[...users]

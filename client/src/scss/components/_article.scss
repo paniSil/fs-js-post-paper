@@ -2,11 +2,19 @@
 .articles-grid {
   column-count: 2;
   column-gap: $gap-sm;
+  margin-left: $gap-md;
+  margin-right: $gap-md;
+  margin-bottom: $gap-xs;
 }
 
 .article {
   break-inside: avoid-column;
   margin-bottom: $gap-lg;
+
+  &--top {
+    margin-left: $gap-md;
+    margin-right: $gap-md;
+  }
 
   &__info {
     display: flex;

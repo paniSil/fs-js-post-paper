@@ -11,7 +11,7 @@ const TopArticles = () => {
   }
 
   return (
-    <div>
+    <div className="container-main--paddings">
       <h2>Top articles list</h2>
       <ol className="rating__list">
         {articles

@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Context } from "../../context/Context";
 import Article from "./ArticleCard";
+import Button from "../helpers/Button";
 
 const Articles = () => {
   const { articles } = useContext(Context);
@@ -17,7 +18,9 @@ const Articles = () => {
 
   return (
     <div>
-      <Article key={sortedArticles[0]._id} article={sortedArticles[0]} />
+      <div className="article--top">
+        <Article key={sortedArticles[0]._id} article={sortedArticles[0]} />
+      </div>
 
       <div className="articles-grid">
         {sortedArticles.slice(1).map((article) =>
@@ -27,6 +30,11 @@ const Articles = () => {
             </div>
           ) : null
         )}
+      </div>
+      <div className="link__more-articles">
+        <Button to="/articles" className="link">
+          Discover more articles
+        </Button>
       </div>
     </div>
   );

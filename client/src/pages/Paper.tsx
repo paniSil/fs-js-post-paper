@@ -18,7 +18,7 @@ const Paper = () => {
   }
 
   return (
-    <div>
+    <div className="container-main--paddings">
       <h2>My Paper</h2>
       <div>
         {currentUser?.articles && currentUser.articles.length > 0 ? (

@@ -18,7 +18,7 @@ const Paperclips = () => {
   }
 
   return (
-    <div>
+    <div className="container-main--paddings">
       <h2>My Paperclips</h2>
       <div>
         {currentUser?.paperclips && currentUser.paperclips.length > 0 ? (

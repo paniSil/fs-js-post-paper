@@ -16,7 +16,7 @@ const Footer = () => {
             <p>
               Check out the{" "}
               <span className="link-span">
-                <a className="link-span__text">colophon</a>
+                <a className="link-span__text">about page</a>
               </span>{" "}
               for more info about how it was made.
             </p>

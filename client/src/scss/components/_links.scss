@@ -30,6 +30,13 @@
     cursor: pointer;
     text-decoration: underline;
   }
+
+  &__more-articles {
+    display: flex;
+    padding: $gap-md 0;
+    border-top: $border-sm;
+    justify-content: center;
+  }
 }
 
 .link:hover {

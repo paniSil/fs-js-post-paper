@@ -21,11 +21,14 @@ body {
 .container-main {
   border-left: $border-md;
   border-right: $border-md;
-  padding-left: $gap-md;
-  padding-right: $gap-md;
   padding-top: $gap-md;
 }
 
-.sidebar {
+.container-main--paddings {
+  margin-left: $gap-md;
+  margin-right: $gap-md;
+}
+
+.container-main--margins .sidebar {
   padding: $gap-md;
 }
