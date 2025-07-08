@@ -59,7 +59,7 @@ const Write = () => {
 
           <div>
             <div>
-              <label htmlFor="desription">Description:</label>
+              <label htmlFor="description">Description:</label>
               <Field id="description" name="description" type="text" />
             </div>
             <ErrorMessage

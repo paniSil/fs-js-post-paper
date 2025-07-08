@@ -175,8 +175,9 @@ const Provider = ({ children }: ProviderProps) => {
       );
 
       return res.data.article;
-    } catch {
-      console.log(error);
+    } catch (err) {
+      console.error("Error updating article:", err);
+      throw err;
     }
   };
 
