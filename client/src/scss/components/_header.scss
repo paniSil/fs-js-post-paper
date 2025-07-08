@@ -1,4 +1,5 @@
 @use "_variables" as *;
+@use "_mixins-media" as *;
 
 .header {
   &__navbar {
@@ -9,6 +10,10 @@
     gap: $gap-xs;
     border-bottom: $border-md;
     padding: $gap-sm $gap-md;
+
+    @include md {
+      justify-content: center;
+    }
   }
 
   &__item {
@@ -27,6 +32,10 @@
     border-bottom: $border-md;
     padding: $gap-xxs $gap-md;
     text-align: center;
+
+    @include md {
+      font-size: $font-sm;
+    }
   }
 }
 
@@ -39,4 +48,8 @@
   justify-self: center;
   text-align: center;
   margin: $gap-xxs;
+
+  @include md {
+    font-size: $font-lgh;
+  }
 }

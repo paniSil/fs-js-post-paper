@@ -1,9 +1,9 @@
 import type { ArticleInterface } from "../../types/Article.interface";
-import Button from "../helpers/Button";
+import Button from "../buttons/Button";
 import { Context } from "../../context/Context";
 import { useContext } from "react";
-import PaperclipButton from "../helpers/PaperclipButton";
-import LikeButton from "../helpers/LikeButton";
+import PaperclipButton from "../buttons/PaperclipButton";
+import LikeButton from "../buttons/LikeButton";
 
 interface ArticleProps {
   article: ArticleInterface;
@@ -23,7 +23,7 @@ const Article = ({
     likedBy,
   },
 }: ArticleProps) => {
-  const { users, getUserInfo, getArticleInfo } = useContext(Context);
+  const { users, getUserInfo } = useContext(Context);
   const author = users.find((user) => user._id === authorId);
 
   return (

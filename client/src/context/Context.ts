@@ -3,17 +3,37 @@ import type { ArticleInterface } from "../types/Article.interface";
 import type { UserInterface } from "../types/User.Interface";
 
 interface ContextType {
+  isLoading: boolean;
+  error: string | null;
+
   articles: ArticleInterface[];
   allArticles: ArticleInterface[];
+  loadMoreArticles: () => Promise<void>;
+  page: number;
+  hasMore: boolean;
+
   addArticle: (credentials: {
     title: string;
     description: string;
     text: string;
     cover: string;
   }) => Promise<void>;
+  updateArticle: (id: string, data: Partial<ArticleInterface>) => Promise<void>;
+  deleteArticle: (id: string) => Promise<void>;
+
+  updatePaperclipsInContext: (articleId: string, increment: number) => void;
+  updateLikesInContext: (
+    articleId: string,
+    increment: number,
+    userId: string
+  ) => void;
+
   users: UserInterface[];
-  currentUser: UserInterface | null;
-  articleInfo: ArticleInterface | null;
+  userInfo: UserInterface | null;
+  isUserInfoLoading: boolean;
+  getUserInfo: (id: string) => Promise<void>;
+  updateUserInfo: (id: string, data: Partial<UserInterface>) => Promise<void>;
+
   login: (credentials: { email: string; password: string }) => Promise<void>;
   logout: () => Promise<void>;
   register: (credentials: {
@@ -22,67 +42,38 @@ interface ContextType {
     password: string;
     age: string;
   }) => Promise<void>;
-  userInfo: UserInterface | null;
-  getUserInfo: (id: string) => Promise<void>;
+  currentUser: UserInterface | null;
   setCurrentUser: (user: UserInterface | null) => void;
-  updatePaperclipsInContext: (articleId: string, increment: number) => void;
-  updateLikesInContext: (
-    articleId: string,
-    increment: number,
-    userId: string
-  ) => void;
-  updateUserInfo: (
-    id: string,
-    updatedProfile: {
-      name: string;
-      email: string;
-      password: string;
-      age: number | string;
-      avatar: string;
-    }
-  ) => Promise<void>;
-  updateArticle: (
-    id: string,
-    updatedArticle: {
-      title: string;
-      description: string;
-      text: string;
-      cover: string;
-    }
-  ) => Promise<void>;
-  deleteArticle: (id: string) => Promise<void>;
-  isLoading: boolean;
-  isUserInfoLoading: boolean;
-  error: string | null;
-  page: number;
-  hasMore: boolean;
-  loadMoreArticles: () => Promise<void>;
 }
 
 const initialState: ContextType = {
-  isUserInfoLoading: false,
   isLoading: false,
   error: null,
-  page: 1,
-  hasMore: true,
-  loadMoreArticles: async () => {},
-  users: [],
+
   articles: [],
   allArticles: [],
+  loadMoreArticles: async () => {},
+  page: 1,
+  hasMore: true,
+
   addArticle: async () => {},
-  currentUser: null,
-  articleInfo: null,
+  updateArticle: async () => {},
+  deleteArticle: async () => {},
+
+  updatePaperclipsInContext: () => {},
+  updateLikesInContext: () => {},
+
+  users: [],
+  userInfo: null,
+  isUserInfoLoading: false,
+  getUserInfo: async () => {},
+  updateUserInfo: async () => {},
+
   login: async () => {},
   logout: async () => {},
   register: async () => {},
-  userInfo: null,
-  getUserInfo: async () => {},
+  currentUser: null,
   setCurrentUser: () => {},
-  updatePaperclipsInContext: () => {},
-  updateLikesInContext: () => {},
-  updateUserInfo: async () => {},
-  updateArticle: async () => {},
-  deleteArticle: async () => {},
 };
 
 export const Context = createContext<ContextType>(initialState);

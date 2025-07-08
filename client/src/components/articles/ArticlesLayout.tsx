@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Context } from "../../context/Context";
 import Article from "./ArticleCard";
-import Button from "../helpers/Button";
+import Button from "../buttons/Button";
 
 const Articles = () => {
   const { articles, isLoading, loadMoreArticles, hasMore } =
@@ -11,11 +11,17 @@ const Articles = () => {
     return <p className="articles__empty">No published articles yet</p>;
   }
 
+  const sortedArticles = [...articles].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+
   return (
     <div>
       <div className="articles-grid">
-        {articles.map((article) => (
-          <Article key={article._id} article={article} />
+        {sortedArticles.map((article) => (
+          <div>
+            <Article key={article._id} article={article} />
+          </div>
         ))}
       </div>
 

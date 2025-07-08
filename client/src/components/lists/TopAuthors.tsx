@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Context } from "../../context/Context";
-import Button from "../helpers/Button";
+import Button from "../buttons/Button";
 
 const TopAuthors = () => {
   const { users, getUserInfo } = useContext(Context);

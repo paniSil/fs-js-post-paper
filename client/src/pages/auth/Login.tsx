@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import Button from "../../components/helpers/Button";
+import Button from "../../components/buttons/Button";
 import { useContext } from "react";
 import { Context } from "../../context/Context";
 import { useNavigate } from "react-router";

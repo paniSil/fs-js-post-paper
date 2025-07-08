@@ -1,4 +1,5 @@
 @use "_variables" as *;
+@use "_mixins-media" as *;
 
 .form {
   display: flex;
@@ -25,12 +26,20 @@
       }
 
       input {
-        width: 300px;
+        min-width: 300px;
         min-height: 29px;
         border-radius: 0;
         padding-left: $gap-xs;
         padding-right: $gap-xs;
         margin-bottom: $gap-xxs;
+
+        @include md {
+          min-width: 280px;
+        }
+      }
+
+      @include md {
+        flex-direction: column;
       }
     }
   }
@@ -47,7 +56,7 @@
     font: inherit;
     cursor: pointer;
     border: none;
-    width: 50%;
+    width: 460px;
     padding: $gap-xs;
     background-color: $color-font;
     color: $color-background;
@@ -56,6 +65,10 @@
     font-weight: 300;
     text-transform: uppercase;
     margin-top: $gap-sm;
+
+    @include md {
+      width: 310px;
+    }
   }
 
   button:hover {

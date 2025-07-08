@@ -1,6 +1,6 @@
 import RandomArticle from "./RandomArticle";
-import TopArticles from "./TopArticles";
-import TopAuthors from "./TopAuthors";
+import TopArticles from "../lists/TopArticles";
+import TopAuthors from "../lists/TopAuthors";
 
 const Sidebar = () => {
   return (

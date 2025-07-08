@@ -2,7 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useContext } from "react";
 import { useNavigate } from "react-router";
-import { Context } from "../context/Context";
+import { Context } from "../../context/Context";
 
 const NewArticleSchema = Yup.object().shape({
   title: Yup.string()

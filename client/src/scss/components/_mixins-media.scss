@@ -3,6 +3,13 @@
 $diff: 0.2px;
 
 /* ul */
+
+@mixin ultra-min {
+  @media (min-width: $ultra) {
+    @content;
+  }
+}
+
 @mixin ul-min {
   @media (min-width: $ul) {
     @content;
@@ -65,7 +72,7 @@ $diff: 0.2px;
 }
 
 @mixin xl {
-  @media (max-width: ($xl - $diff)) {
+  @media (max-width: ($xl)) {
     @content;
   }
 }

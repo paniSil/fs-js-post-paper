@@ -1,11 +1,22 @@
 @use "_variables" as *;
+@use "_mixins-media" as *;
 
 .sidebar {
   padding-left: $gap-md;
   margin-bottom: $gap-lg;
+  padding-top: $gap-md;
+
   &__block {
     border-bottom: $border-sm;
     padding-bottom: $gap-md;
+    margin-right: $gap-md;
+
+    @include lg {
+      margin-top: $gap-sm;
+      border-bottom: none;
+      padding-bottom: $gap-sm;
+      margin-right: 0;
+    }
   }
 
   &__title {
@@ -24,6 +35,10 @@
     padding: 0;
     list-style-type: none;
     gap: $gap-xs;
+
+    @include lg {
+      padding-left: $gap-md;
+    }
   }
 
   &__item {
@@ -47,9 +62,34 @@
     text-shadow: $shadow-mono;
     scale: 1.03;
   }
+
+  @include lg {
+    padding-top: 0;
+    padding-left: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.5fr;
+    gap: $gap-md;
+    margin-bottom: $gap-md;
+
+    h3 {
+      padding-left: $gap-md;
+    }
+  }
+
+  @include md {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $gap-md;
+    margin-bottom: $gap-md;
+
+    & > *:last-child {
+      grid-column: span 2;
+    }
+  }
 }
 
 .random {
+  margin-top: $gap-md;
   text-align: center;
 
   h3 {
@@ -69,5 +109,17 @@
 
   &__link-span {
     font-size: $font-sm;
+  }
+
+  @include lg {
+    padding-right: $gap-md;
+    padding-left: $gap-md;
+    border-left: $border-sm;
+  }
+
+  @include md {
+    padding-top: $gap-md;
+    border-top: $border-sm;
+    border-left: none;
   }
 }

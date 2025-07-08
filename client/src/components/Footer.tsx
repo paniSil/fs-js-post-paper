@@ -1,11 +1,10 @@
 import { RxExternalLink } from "react-icons/rx";
-import Button from "../helpers/Button";
+import Button from "./buttons/Button";
 
 const Footer = () => {
   return (
     <footer className="container-column">
       <div className="footer">
-        <div></div>
         <div className="footer__subgrid">
           <div className="footer__info">
             <div className="footer__header">Site Info</div>
@@ -72,15 +71,6 @@ const Footer = () => {
                 </Button>
               </li>
               <li className="footer-nav__item link-span">
-                <Button
-                  to="/contacts"
-                  title="Contacts"
-                  className="link-span__text"
-                >
-                  Contacts
-                </Button>
-              </li>
-              <li className="footer-nav__item link-span">
                 <a href="/" className="link-span__text">
                   GitHub
                   <RxExternalLink size="1.4rem" className="link-span__icon" />
@@ -89,7 +79,6 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <div></div>
       </div>
 
       <div className="footer__copyright">© 2025 Mariia Zvonkova</div>

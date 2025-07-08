@@ -1,4 +1,4 @@
-import ArticleFull from "../components/forPages/ArticleFull";
+import ArticleFull from "../../components/articles/ArticleFull";
 
 const Article = () => {
   return (

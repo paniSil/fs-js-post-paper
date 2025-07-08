@@ -1,16 +1,22 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import type { ArticleInterface } from "../../types/Article.interface";
-import Button from "../helpers/Button";
+import Button from "../buttons/Button";
 import { Context } from "../../context/Context";
-import LikeButton from "../helpers/LikeButton";
-import PaperclipButton from "../helpers/PaperclipButton";
+import LikeButton from "../buttons/LikeButton";
+import PaperclipButton from "../buttons/PaperclipButton";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
 
 const ArticleFull = () => {
-  const { articles, getUserInfo, users, currentUser, deleteArticle } =
-    useContext(Context);
+  const {
+    allArticles,
+    articles,
+    getUserInfo,
+    users,
+    currentUser,
+    deleteArticle,
+  } = useContext(Context);
   const { id } = useParams<{ id: string }>();
   const [article, setArticle] = useState<ArticleInterface | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -18,7 +24,14 @@ const ArticleFull = () => {
   useEffect(() => {
     setLoading(true);
 
-    const currentArticle = articles.find((article) => article._id === id);
+    let currentArticle =
+      allArticles && allArticles.length
+        ? allArticles.find((article) => article._id === id)
+        : null;
+
+    if (!currentArticle && articles && articles.length) {
+      currentArticle = articles.find((article) => article._id === id);
+    }
 
     if (currentArticle) {
       setArticle(currentArticle);
@@ -26,7 +39,7 @@ const ArticleFull = () => {
       setArticle(null);
     }
     setLoading(false);
-  }, [id, articles]);
+  }, [id, allArticles, articles]);
 
   if (loading) {
     return (

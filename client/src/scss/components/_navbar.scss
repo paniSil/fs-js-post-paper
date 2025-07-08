@@ -1,4 +1,5 @@
 @use "_variables" as *;
+@use "_mixins-media" as *;
 
 .navbar {
   margin-top: $gap-md;
@@ -8,7 +9,6 @@
     display: flex;
     flex-direction: column;
     list-style-position: outside;
-    display: flex;
     margin-left: -18px;
   }
 
@@ -34,5 +34,26 @@
   &__link:hover {
     text-shadow: $shadow-mono;
     scale: 1.03;
+  }
+
+  @include md {
+    margin-top: 0;
+    padding-right: 0;
+    border-bottom: $border-md;
+
+    &__menu {
+      display: flex;
+      flex-direction: row;
+      gap: $gap-xs;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    &__item {
+      display: block;
+      padding-bottom: 0;
+      padding-top: 0;
+      border-bottom: none;
+    }
   }
 }

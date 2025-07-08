@@ -1,11 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import "./scss/index.scss";
 import { routes } from "./routes/config";
-import Sidebar from "./components/forPages/Sidebar";
-import Header from "./components/forPages/Header";
-import Navbar from "./components/forPages/Navbar";
-import Footer from "./components/forPages/Footer";
+import Sidebar from "./components/sidebar/Sidebar";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Provider from "./components/Provider";
+import Header from "./components/Header";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

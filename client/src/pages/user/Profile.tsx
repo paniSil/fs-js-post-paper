@@ -1,13 +1,21 @@
-import { useContext } from "react";
-import { Context } from "../context/Context";
-import Button from "../components/helpers/Button";
+import { useContext, useEffect } from "react";
+import { Context } from "../../context/Context";
+import Button from "../../components/buttons/Button";
+import { useParams } from "react-router";
 
 const Profile = () => {
-  const { userInfo, allArticles, isUserInfoLoading } = useContext(Context);
+  const { userInfo, allArticles, isUserInfoLoading, getUserInfo } =
+    useContext(Context);
+  const { id } = useParams();
 
-  if (isUserInfoLoading || !userInfo) {
-    return <p>Loading user information...</p>;
-  }
+  useEffect(() => {
+    if (id) {
+      getUserInfo(id);
+    }
+  }, [id, getUserInfo]);
+
+  if (isUserInfoLoading) return <div>Loading user information...</div>;
+  if (!userInfo) return <div>User not found</div>;
 
   return (
     <div className="profile">

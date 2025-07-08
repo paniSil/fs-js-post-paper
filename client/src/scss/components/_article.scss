@@ -1,4 +1,6 @@
 @use "_variables" as *;
+@use "_mixins-media" as *;
+
 .articles-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -10,6 +12,28 @@
   & > *:first-child {
     grid-column: span 2;
   }
+
+  @include ultra-min {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    & > *:first-child {
+      grid-column: span 4;
+    }
+  }
+
+  @include lg {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    & > * {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+.article--fullwidth {
+  grid-column: span 2;
 }
 
 .article {
@@ -50,6 +74,7 @@
       width: 32px;
       height: 32px;
       border-radius: 50%;
+      filter: grayscale(1);
     }
   }
 
@@ -59,6 +84,11 @@
     height: 300px;
     margin-top: $gap-xxs;
     margin-bottom: $gap-sm;
+    filter: grayscale(1);
+
+    @include ultra-min {
+      height: 420px;
+    }
   }
 
   &__image--full {
@@ -66,12 +96,13 @@
     width: 100%;
     margin-top: $gap-xxs;
     margin-bottom: $gap-sm;
+    filter: grayscale(1);
   }
 
   &__text {
     font-size: $font-sm;
     text-align: justify;
-    column-count: 2;
+    column-count: 1;
     column-gap: $gap-sm;
     margin-bottom: $gap-sm;
     max-height: 180px;

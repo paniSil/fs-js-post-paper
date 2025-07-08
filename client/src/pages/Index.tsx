@@ -1,4 +1,4 @@
-import Articles from "../components/forPages/ArticlesLayout";
+import Articles from "../components/articles/ArticlesLayout";
 
 const Index = () => {
   return (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { ArticleInterface } from "../types/Article.interface";
 import { Context } from "../context/Context";
 import axios from "axios";
@@ -9,18 +9,21 @@ interface ProviderProps {
 }
 
 const Provider = ({ children }: ProviderProps) => {
-  const [articles, setArticles] = useState<ArticleInterface[]>([]);
-  const [allArticles, setAllArticles] = useState<ArticleInterface[]>([]);
-  const [users, setUsers] = useState<UserInterface[]>([]);
-  const [currentUser, setCurrentUser] = useState<UserInterface | null>(null);
-  const [userInfo, setUserInfo] = useState<UserInterface | null>(null);
-  const [isUserInfoLoading, setIsUserInfoLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [allArticles, setAllArticles] = useState<ArticleInterface[]>([]);
+  const [articles, setArticles] = useState<ArticleInterface[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const LIMIT = 5;
 
+  const [users, setUsers] = useState<UserInterface[]>([]);
+  const [currentUser, setCurrentUser] = useState<UserInterface | null>(null);
+  const [userInfo, setUserInfo] = useState<UserInterface | null>(null);
+  const [isUserInfoLoading, setIsUserInfoLoading] = useState(false);
+
+  // Articles and users get functions
   const fetchInitialData = async () => {
     setIsLoading(true);
     setError(null);
@@ -29,7 +32,7 @@ const Provider = ({ children }: ProviderProps) => {
       const [articlesRes, usersRes, allArticlesRes] = await Promise.all([
         axios.get(`/api/articles?page=1&limit=${LIMIT}&sort={"createdAt":-1}`),
         axios.get("/api/users"),
-        axios.get("/api/articles"),
+        axios.get("/api/articles?limit=1000"),
       ]);
 
       if (articlesRes.data.articles) {
@@ -61,7 +64,9 @@ const Provider = ({ children }: ProviderProps) => {
 
     try {
       const nextPage = page + 1;
-      const url = `/api/articles?page=${nextPage}&limit=${LIMIT}&sort={"createdAt":-1}`;
+      const url = `/api/articles?page=${nextPage}&limit=${
+        LIMIT - 1
+      }&sort={"createdAt":-1}`;
       console.log("Fetching URL:", url);
 
       const res = await axios.get(url);
@@ -93,6 +98,7 @@ const Provider = ({ children }: ProviderProps) => {
     fetchInitialData();
   }, []);
 
+  // User authentification check and functions
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -127,70 +133,33 @@ const Provider = ({ children }: ProviderProps) => {
     setCurrentUser(res.data.user);
   };
 
+  // Single article handlers
   const addArticle = async (article: {
     title: string;
     description: string;
     text: string;
     cover: string;
   }) => {
-    const res = await axios.post("api/articles", article);
-    const newArticle = res.data.article;
-    setArticles([...articles, newArticle]);
-    if (currentUser) {
-      const updatedUserRes = await axios.put(`api/users/${currentUser._id}`, {
-        articleId: newArticle._id,
-      });
-      setCurrentUser(updatedUserRes.data.user);
+    try {
+      const res = await axios.post("api/articles", article);
+      const newArticle = res.data.article;
+      setArticles((prev) => [...prev, newArticle]);
+      setAllArticles((prev) => [...prev, newArticle]);
+      if (currentUser) {
+        const updatedUserRes = await axios.put(`api/users/${currentUser._id}`, {
+          articleId: newArticle._id,
+        });
+        setCurrentUser(updatedUserRes.data.user);
+      }
+    } catch (err) {
+      console.error("Error adding article:", err);
+      throw err;
     }
   };
 
-  const getUserInfo = async (id: string) => {
-    setIsUserInfoLoading(true);
+  const updateArticle = async (id: string, data: Partial<ArticleInterface>) => {
     try {
-      const res = await axios.get(`/api/users/${id}`);
-      setUserInfo(res.data.user || null);
-    } catch {
-      setUserInfo(null);
-    } finally {
-      setIsUserInfoLoading(false);
-    }
-  };
-
-  const updateUserInfo = async (
-    id: string,
-    updatedProfile: {
-      name: string;
-      email: string;
-      password: string;
-      age: number | string;
-      avatar: string;
-    }
-  ) => {
-    try {
-      const res = await axios.put(`api/users/${id}`, updatedProfile);
-      setCurrentUser(res.data.user || null);
-
-      setUsers((prevUsers) =>
-        prevUsers.map((user) =>
-          user._id === id ? { ...user, ...res.data.user } : user
-        )
-      );
-    } catch {
-      setCurrentUser(null);
-    }
-  };
-
-  const updateArticle = async (
-    id: string,
-    updatedArticle: {
-      title: string;
-      description: string;
-      text: string;
-      cover: string;
-    }
-  ) => {
-    try {
-      const res = await axios.put(`/api/articles/${id}`, updatedArticle);
+      const res = await axios.put(`/api/articles/${id}`, data);
       const updatedArticleData = res.data.article;
 
       setAllArticles((prevArticles) =>
@@ -240,6 +209,7 @@ const Provider = ({ children }: ProviderProps) => {
     }
   };
 
+  // likes and paperclips for articles
   const updatePaperclipsInContext = (articleId: string, increment: number) => {
     setArticles((prevArticles) =>
       prevArticles.map((article) =>
@@ -273,17 +243,45 @@ const Provider = ({ children }: ProviderProps) => {
     );
   };
 
+  // User info handlers
+  const getUserInfo = useCallback(async (id: string) => {
+    setIsUserInfoLoading(true);
+    try {
+      const res = await axios.get(`/api/users/${id}`);
+      setUserInfo(res.data.user || null);
+    } catch {
+      setUserInfo(null);
+    } finally {
+      setIsUserInfoLoading(false);
+    }
+  }, []);
+
+  const updateUserInfo = async (id: string, data: Partial<UserInterface>) => {
+    try {
+      const res = await axios.put(`api/users/${id}`, data);
+      setCurrentUser(res.data.user || null);
+
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user._id === id ? { ...user, ...res.data.user } : user
+        )
+      );
+    } catch {
+      setCurrentUser(null);
+    }
+  };
+
   return (
     <Context.Provider
       value={{
         users,
         articles,
         addArticle,
+        login,
+        register,
+        logout,
         currentUser,
         setCurrentUser,
-        login,
-        logout,
-        register,
         userInfo,
         getUserInfo,
         updatePaperclipsInContext,

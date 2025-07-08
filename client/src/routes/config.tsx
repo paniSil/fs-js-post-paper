@@ -1,19 +1,21 @@
 import About from "../pages/About";
-import AllArticles from "../pages/AllArticles";
-import Article from "../pages/Article";
-import Contacts from "../pages/Contacts";
+import AllArticles from "../pages/articles/AllArticles";
+import Article from "../pages/articles/Article";
 import Index from "../pages/Index";
 import Login from "../pages/auth/Login";
-import Paper from "../pages/Paper";
-import Paperclips from "../pages/Paperclips";
-import Profile from "../pages/Profile";
+import Paper from "../pages/user/Paper";
+
+import Profile from "../pages/user/Profile";
 import Register from "../pages/auth/Register";
-import TopArticles from "../pages/TopArticles";
-import TopAuthors from "../pages/TopAuthors";
 import Forgot from "../pages/auth/Forgot";
-import Write from "../pages/Write";
-import CurrentUserProfile from "../pages/CurrentUserProfile";
-import EditArticle from "../pages/EditArticle";
+
+import CurrentUserProfile from "../pages/user/CurrentUserProfile";
+
+import EditArticle from "../pages/articles/EditArticle";
+import Write from "../pages/articles/Write";
+import Paperclips from "../pages/user/Paperclips";
+import TopArticles from "../pages/lists/TopArticles";
+import TopAuthors from "../pages/lists/TopAuthors";
 
 interface RouteConfig {
   path: string;
@@ -93,12 +95,6 @@ export const routes: RouteConfig[] = [
     path: "/about",
     Component: About,
     label: "About",
-    showInNav: false,
-  },
-  {
-    path: "/contacts",
-    Component: Contacts,
-    label: "Contacts",
     showInNav: false,
   },
   {

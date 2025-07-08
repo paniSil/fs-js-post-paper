@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import * as Yup from "yup";
-import { Context } from "../context/Context";
 import { useNavigate, useParams } from "react-router";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Context } from "../../context/Context";
 
 const validationSchema = Yup.object({
   title: Yup.string(),
@@ -12,10 +12,10 @@ const validationSchema = Yup.object({
 });
 
 const EditArticle = () => {
-  const { articles, updateArticle } = useContext(Context);
+  const { allArticles, updateArticle } = useContext(Context);
   const navigate = useNavigate();
   const { id } = useParams();
-  const articleInfo = articles.find((article) => article._id === id);
+  const articleInfo = allArticles.find((article) => article._id === id);
 
   if (!articleInfo) {
     return <div>No article info to edit!</div>;
@@ -45,7 +45,7 @@ const EditArticle = () => {
             );
             updateArticle(articleInfo._id, filtered);
             resetForm();
-            navigate("/");
+            navigate(`/articles/${id}`);
           } catch (error) {
             alert(`Article update failed! ${error}`);
           } finally {

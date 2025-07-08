@@ -1,7 +1,8 @@
 import { SlNote, SlUser, SlLogout } from "react-icons/sl";
-import Button from "../helpers/Button";
+
 import { useContext } from "react";
-import { Context } from "../../context/Context";
+import { Context } from "../context/Context";
+import Button from "./buttons/Button";
 
 const Header = () => {
   const { currentUser, logout } = useContext(Context);
@@ -46,7 +47,6 @@ const Header = () => {
 
       <h1>The Post Paper</h1>
       <div className="header__infobar">
-        {/* add issue counter (articles / 10) */}
         <div className="header__text">Issue №1234</div>
         <div className="header__text">Your old-school blogging companion</div>
         <div className="header__text">{today}</div>

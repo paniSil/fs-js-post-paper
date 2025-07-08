@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { Context } from "../context/Context";
-import Button from "../components/helpers/Button";
 import { PiHeartLight } from "react-icons/pi";
+import { Context } from "../../context/Context";
+import Button from "../../components/buttons/Button";
 
 const TopArticles = () => {
   const { allArticles } = useContext(Context);

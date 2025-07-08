@@ -1,9 +1,9 @@
 import { useContext, useEffect } from "react";
-import { Context } from "../context/Context";
+import { Context } from "../../context/Context";
 import { useNavigate } from "react-router";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import Button from "../components/helpers/Button";
+import Button from "../../components/buttons/Button";
 
 const validationSchema = Yup.object({
   name: Yup.string(),
@@ -14,7 +14,7 @@ const validationSchema = Yup.object({
 });
 
 const CurrentUserProfile = () => {
-  const { currentUser, updateUserInfo, articles } = useContext(Context);
+  const { currentUser, updateUserInfo, allArticles } = useContext(Context);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -125,12 +125,12 @@ const CurrentUserProfile = () => {
         </span>
         <ol className="rating__list">
           {currentUser?.articles && currentUser.articles.length > 0 ? (
-            articles
+            allArticles
               .filter((article) =>
                 currentUser.articles?.map(String).includes(String(article._id))
               )
               .map((article) => (
-                <li className="rating__item">
+                <li className="rating__item" key={article._id}>
                   <Button
                     to={`/articles/${article._id}`}
                     className="rating__link"

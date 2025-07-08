@@ -1,6 +1,6 @@
-import { ErrorMessage, Field, Form, Formik, validateYupSchema } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import Button from "../../components/helpers/Button";
+import Button from "../../components/buttons/Button";
 import { useContext } from "react";
 import { Context } from "../../context/Context";
 import { useNavigate } from "react-router";
@@ -16,7 +16,7 @@ const RegistrationSchema = Yup.object().shape({
     .max(100, "Too Long! Can not be longer than 100 characters.")
     .required("Password is required"),
   age: Yup.number()
-    .transform((value, originalValue) =>
+    .transform((originalValue) =>
       String(originalValue).trim() === "" ? undefined : Number(originalValue)
     )
     .min(1, "Wrong value")
