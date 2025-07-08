@@ -1,4 +1,5 @@
 # THE POST PAPER — Frontend
+![image](https://github.com/user-attachments/assets/1f53b595-57f6-40e5-b75d-ce06c4fe1771)
 
 Це клієнтська частина проєкту THE POST PAPER — платформи для блогів/статей у стилі газети.
 
