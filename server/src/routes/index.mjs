@@ -4,8 +4,6 @@ import usersRouter from "./usersRouter.mjs";
 import articlesRouter from "./articlesRouter.mjs";
 import themeRouter from "./themeRouter.mjs";
 import authRouter from "./authRouter.mjs";
-import { protect, authorize } from "../middleware/authHandler.mjs";
-
 
 const router = Router();
 
@@ -15,6 +13,5 @@ router.use('/api/auth', authRouter);
 
 router.use('/api/users', usersRouter);
 router.use('/api/articles', articlesRouter);
-// protect, authorize('admin')
 
 export default router;
