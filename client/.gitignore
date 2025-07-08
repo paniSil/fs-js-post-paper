@@ -22,3 +22,23 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+### Custom .gitignore template
+# Folders
+.idea/
+.vscode/
+node_modules/
+dist/
+build/
+coverage/
+requests/
+src/__test__/
+src/data/
+
+# Files
+.DS_Store
+*.log
+*.js.map
+*.d.ts
+src/ASSIGNMENT.md
+.env
