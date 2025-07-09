@@ -114,12 +114,12 @@ const Provider = ({ children }: ProviderProps) => {
   }, []);
 
   const login = async (credentials: { email: string; password: string }) => {
-    const res = await axios.post("api/auth/login", credentials);
+    const res = await axios.post("/api/auth/login", credentials);
     setCurrentUser(res.data.user);
   };
 
   const logout = async () => {
-    await axios.post("api/auth/logout");
+    await axios.post("/api/auth/logout");
     setCurrentUser(null);
   };
 
@@ -129,7 +129,7 @@ const Provider = ({ children }: ProviderProps) => {
     password: string;
     age: string;
   }) => {
-    const res = await axios.post("api/auth/register", credentials);
+    const res = await axios.post("/api/auth/register", credentials);
     setCurrentUser(res.data.user);
   };
 
@@ -141,14 +141,17 @@ const Provider = ({ children }: ProviderProps) => {
     cover: string;
   }) => {
     try {
-      const res = await axios.post("api/articles", article);
+      const res = await axios.post("/api/articles", article);
       const newArticle = res.data.article;
       setArticles((prev) => [...prev, newArticle]);
       setAllArticles((prev) => [...prev, newArticle]);
       if (currentUser) {
-        const updatedUserRes = await axios.put(`api/users/${currentUser._id}`, {
-          articleId: newArticle._id,
-        });
+        const updatedUserRes = await axios.put(
+          `/api/users/${currentUser._id}`,
+          {
+            articleId: newArticle._id,
+          }
+        );
         setCurrentUser(updatedUserRes.data.user);
       }
     } catch (err) {
@@ -259,7 +262,7 @@ const Provider = ({ children }: ProviderProps) => {
 
   const updateUserInfo = async (id: string, data: Partial<UserInterface>) => {
     try {
-      const res = await axios.put(`api/users/${id}`, data);
+      const res = await axios.put(`/api/users/${id}`, data);
       setCurrentUser(res.data.user || null);
 
       setUsers((prevUsers) =>
