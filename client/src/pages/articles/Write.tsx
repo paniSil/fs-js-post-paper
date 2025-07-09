@@ -12,7 +12,7 @@ const NewArticleSchema = Yup.object().shape({
   description: Yup.string()
     .min(10, "Too short!")
     .max(240, "Too long!")
-    .required("Title is required"),
+    .required("Description is required"),
   text: Yup.string().min(10, "Too short!").required("Text is required"),
   cover: Yup.string().url("Must be a valid URL"),
 });

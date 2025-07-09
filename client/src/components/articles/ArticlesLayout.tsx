@@ -19,8 +19,8 @@ const Articles = () => {
     <div>
       <div className="articles-grid">
         {sortedArticles.map((article) => (
-          <div>
-            <Article key={article._id} article={article} />
+          <div key={article._id}>
+            <Article article={article} />
           </div>
         ))}
       </div>
